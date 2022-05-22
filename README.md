@@ -24,7 +24,7 @@ Para utilizar SAM CLI se necesitan las siguientes herramientas:
 ```bash
 sam build
 ```
-### Desplegar la aplicación por primera vez:
+### DESPLEGAR la aplicación por primera vez:
 
 Sin utilizar la configuración del archivo samconfig.toml. Se generará un archivo de configuración reemplazando al actual si ya existe.
 Ejecutar el siguiente comando:
@@ -42,7 +42,7 @@ El despliegue de la aplicación empaqueta, publicará en un bucket s3 el artefac
 
 En el output del despliegue se devolverá el API Gateway Endpoint URL
 
-### Desplegar la aplicación con la configuración de **samconfig.toml**:
+### DESPLEGAR la aplicación con la configuración de **samconfig.toml**:
 Revisar el fichero samconfig.toml
 ```bash
 vim samconfig.toml
