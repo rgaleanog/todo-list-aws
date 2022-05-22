@@ -2,7 +2,7 @@
 
 Este proyecto contiene un ejemplo de solución **SAM + Jenkins**. Contiene una aplicación API RESTful de libreta de tareas pendientes (ToDo) y los pipelines que permiten definir el CI/CD para productivizarla.
 
-## Estructura
+## ESTRUCTURA
 
 A continuación se describe la estructura del proyecto:
 - **pipelines** - pipelines de Jenkins que permiten construir el CI/CD
@@ -12,7 +12,7 @@ A continuación se describe la estructura del proyecto:
 - **template.yaml** - Template que define los recursos AWS de la aplicación
 - **localEnvironment.json** - Permite el despliegue en local de la aplicación sobreescribiendo el endpoint de dynamodb para que apunte contra el docker de dynamo
 
-## Despliegue manual de la aplicación SAM en AWS
+## DESPLIEGUE manual de la aplicación SAM en AWS
 
 Para utilizar SAM CLI se necesitan las siguientes herramientas:
 
@@ -24,7 +24,7 @@ Para utilizar SAM CLI se necesitan las siguientes herramientas:
 ```bash
 sam build
 ```
-### Desplegar la aplicación por primera vez:
+### DESPLEGAR la aplicación por primera vez:
 
 Sin utilizar la configuración del archivo samconfig.toml. Se generará un archivo de configuración reemplazando al actual si ya existe.
 Ejecutar el siguiente comando:
@@ -42,7 +42,7 @@ El despliegue de la aplicación empaqueta, publicará en un bucket s3 el artefac
 
 En el output del despliegue se devolverá el API Gateway Endpoint URL
 
-### Desplegar la aplicación con la configuración de **samconfig.toml**:
+### DESPLEGAR la aplicación con la configuración de **samconfig.toml**:
 Revisar el fichero samconfig.toml
 ```bash
 vim samconfig.toml
@@ -67,7 +67,7 @@ Ejecutar el siguiente comando para el entorno de **producción**
 sam deploy template.yaml --config-env prod
 ```
 
-## Despliegue manual de la aplicación SAM en local
+## DESPLIEGUE manual de la aplicación SAM en local
 
 A continuación se describen los comandos/acciones a realizar para poder probar la aplicación en local:
 ```bash
@@ -87,7 +87,7 @@ sam build # también se puede usar sam build --use-container si se dan problemas
 sam local start-api --port 8081 --env-vars localEnvironment.json --docker-network sam
 ```
 
-## Consultar logs de las funciones lambda
+## CONSULTAR logs de las funciones lambda
 
 Se pueden consultar en CloudWath o ejecutando un comando similar al siguiente:
 ```bash
@@ -141,7 +141,7 @@ pipelines/PIPELINE-FULL-STAGING/static_test.sh
 pipelines/common-steps/integration.sh
 ```
 
-## Pipelines
+## PIPELINES
 
 Para la implementación del CI/CD de la aplicación se utilizan los siguientes Pipelines:
 *	**PIPELINE-FULL-STAGING**: (PIPELINE-FULL-STAGING/Jenkinsfile) Este pipeline es el encargado de configurar el entorno de staging y ejecutar las pruebas
