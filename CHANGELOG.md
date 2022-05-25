@@ -8,4 +8,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Versión inicial de código.
 primera prueba
-creando la rama feature
+creando la rama feature para realizar los cambios necesarios para la ejecución de pruebas en SAM local
