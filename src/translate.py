@@ -9,7 +9,10 @@ def translate(event, context):
     item = todoList.get_item(event['pathParameters']['id'])
     code = event['pathParameters']['lang']
     if item:
-        translate = boto3.client(service_name='translate',region_name='region')
+        translate = boto3.client(
+                service_name='translate',
+                region_name='region'
+        )
         result = translate.translate_text(
             Text=item,
             SourceLanguageCode='auto',
