@@ -11,7 +11,7 @@ def translate(event, context):
     if item:
         translate = boto3.client(
                 service_name='translate',
-                region_name='region'
+                region_name='us-east-1'
         )
         result = translate.translate_text(
             Text=item,
