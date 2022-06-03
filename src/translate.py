@@ -14,7 +14,7 @@ def translate(event, context):
                 region_name='us-east-1'
         )
         result = translate.translate_text(
-            Text='item.text',
+            Text=item.text,
             SourceLanguageCode='auto',
             TargetLanguageCode=code
         )
