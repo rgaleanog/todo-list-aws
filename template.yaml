@@ -95,7 +95,7 @@ Resources:
     Properties:
       CodeUri: src/
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
-      Handler: translate.translate
+      Handler: traductor.traductor
       Runtime: python3.7
       Events:
         Create:
@@ -137,6 +137,9 @@ Outputs:
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todos/{id}"
   UpdateTodoApi:
     Description: "API Gateway endpoint URL for ${opt:stage} stage for Update TODO"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todos/{id}"
+  TraductorTodoApi:
+    Description: "API Gateway endpoint URL for ${opt:stage} stage for traducir TODO"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todos/{id}"
   DeleteTodoApi:
     Description: "API Gateway endpoint URL for ${opt:stage} stage for Delete TODO"
