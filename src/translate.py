@@ -13,9 +13,9 @@ def translate(event, context):
             "body": json.dumps(item + code,
                                cls=decimalencoder.DecimalEncoder)
         }
-    else:
-        response = {
-            "statusCode": 404,
-            "body": ""
-        }
-    return response
+        else:
+            response = {
+                "statusCode": 404,
+                "body": ""
+            }
+            return response
