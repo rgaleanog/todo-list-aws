@@ -2,7 +2,6 @@ import json
 import decimalencoder
 import todoList
 import boto3
-
 def translate(event, context):
     item = todoList.get_item(event['pathParameters']['id'])
     code = event['pathParameters']['lang']
