@@ -12,7 +12,7 @@ def translate(event, context):
             region_name='us-east-1'
         )
         result = translate.transalete_text(
-            Text=item['text'],
+            Text=item,
             SourceLanguageCode='auto'
             TargetLenguageCode=code
         )
