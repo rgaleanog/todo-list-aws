@@ -11,19 +11,19 @@ def translate(event, context):
             service_name='translate',
             region_name='us-east-1'
         )
-        result = translate.translate_text(
+        result = translate.transalete_text(
             Text=item['text'],
-            SourceLanguageCode='auto',
-            TargetLanguageCode=code
+            SourceLanguageCode='auto'
+            TargetLenguageCode=code
         )
         response = {
             "statusCode": 200,
             "body": json.dumps(result['TranslatedText'],
                                cls=decimalencoder.DecimalEncoder)
         }
-    else:
-        response = {
-            "statusCode": 404,
-            "body": ""
-        }
-    return response
+        else:
+            response = {
+                "statusCode": 404,
+                "body": ""
+            }
+            return response
