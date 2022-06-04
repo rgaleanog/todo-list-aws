@@ -28,7 +28,7 @@ pipeline {
             steps{
                 
                 echo 'Starting production job'
-                build job: 'PIPELINE-FULL-PRODUCTION', parameters: [
+                build job: 'PIPELINE-FULL-PRODUCCION', parameters: [
                       string(name:'ENVIRONMENT', value: "production")]
             }
         }
