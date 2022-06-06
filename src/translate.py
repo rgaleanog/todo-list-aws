@@ -1,29 +1,29 @@
-import json
-import decimalencoder
 import todoList
 import boto3
 
 def translate(event, context):
+    translate = boto3.client(service_name='translate', region_name='us-east-1')
     item = todoList.get_item(event['pathParameters']['id'])
-    code = event['pathParameters']['lang']
     if item:
-        translate = boto3.client(
-            service_name='translate',
-            region_name='us-east-1'
-        )
-        result = translate.transalete_text(
-            Text=item['text'],
-            SourceLanguageCode='auto',
-            TargetLenguageCode=code
-            )
-        response = {
-            "statusCode": 200,
-            "body": json.dumps(result['TranslatedText'],
-                               cls=decimalencoder.DecimalEncoder)
-        }
+        try:
+            result = todoList.translate_item(item.get('text'),event['pathParameters']['language'])
+            print('TranslatedText: ' + result.get('TranslatedText'))
+            print('SourceLanguageCode: ' + result.get('SourceLanguageCode'))
+            print('TargetLanguageCode: ' + result.get('TargetLanguageCode'))
+            response = {
+                    "statusCode": 200,
+                    "body": result.get('TranslatedText')
+                    }
+        except Exception as e:
+            print('Estoy en la excepcion')
+            print(e)
+            response = {
+                    "statusCode": 400,
+                    "body": str(e)
+                    }
         else:
             response = {
-                "statusCode": 404,
-                "body": ""
-            }
-        return response
+                    "statusCode": 404,
+                    "body": ""
+                    }
+            return response
