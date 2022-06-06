@@ -12,10 +12,10 @@ def translate(event, context):
             region_name='us-east-1'
         )
         result = translate.transalete_text(
-            Text=item,
-            SourceLanguageCode='auto'
+            Text=item['text'],
+            SourceLanguageCode='auto',
             TargetLenguageCode=code
-        )
+            )
         response = {
             "statusCode": 200,
             "body": json.dumps(result['TranslatedText'],
@@ -26,4 +26,4 @@ def translate(event, context):
                 "statusCode": 404,
                 "body": ""
             }
-            return response
+        return response
