@@ -274,7 +274,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         
         print ('End: test_table_exists_error')
 
-    def test_get_translate_todo(self):
+    def test_translate(self):
         print ('---------------------')
         print ('Start: test_get_translation_todo')
         from src.todoList import get_translation
