@@ -1,0 +1,31 @@
+:~ $ sam logs -n GetTodoFunction --stack-name todo-list-aws-staging
+Traceback (most recent call last):
+  File "samcli/__main__.py", line 12, in <module>
+  File "click/core.py", line 829, in __call__
+  File "click/core.py", line 782, in main
+  File "click/core.py", line 1259, in invoke
+  File "click/core.py", line 1066, in invoke
+  File "click/core.py", line 610, in invoke
+  File "click/decorators.py", line 73, in new_func
+  File "click/core.py", line 610, in invoke
+  File "samcli/lib/telemetry/metric.py", line 153, in wrapped
+  File "samcli/lib/telemetry/metric.py", line 122, in wrapped
+  File "samcli/lib/utils/version_checker.py", line 42, in wrapped
+  File "samcli/cli/main.py", line 90, in wrapper
+  File "samcli/commands/logs/command.py", line 97, in cli
+  File "samcli/commands/logs/command.py", line 113, in do_cli
+  File "samcli/commands/logs/logs_context.py", line 80, in __init__
+  File "boto3/__init__.py", line 93, in client
+  File "boto3/session.py", line 263, in client
+  File "botocore/session.py", line 838, in create_client
+  File "botocore/client.py", line 87, in create_client
+  File "botocore/client.py", line 328, in _get_client_args
+  File "botocore/args.py", line 73, in get_client_args
+  File "botocore/args.py", line 154, in compute_client_args
+  File "botocore/args.py", line 220, in _compute_endpoint_config
+  File "botocore/args.py", line 303, in _resolve_endpoint
+  File "botocore/client.py", line 402, in resolve
+  File "botocore/regions.py", line 134, in construct_endpoint
+  File "botocore/regions.py", line 148, in _endpoint_for_partition
+botocore.exceptions.NoRegionError: You must specify a region.
+[4301] Failed to execute script __main__

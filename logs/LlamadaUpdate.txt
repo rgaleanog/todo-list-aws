@@ -1,0 +1,3 @@
+:~/todo-list-aws (development) $ curl -X PUT https://7wpzvwvkb6.execute-api.us-east-1.amazonaws.com/Prod/todos/6de23b38
+-e9d2-11ec-a942-8e682431a020 --data '{ "text": "Learn Serverless", "checked": true }'
+{"checked": true, "createdAt": "1654985053.619088", "text": "Learn Serverless", "id": "6de23b38-e9d2-11ec-a942-8e682431a020", "updatedAt": 1654985372774}

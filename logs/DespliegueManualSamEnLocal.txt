@@ -1,0 +1,64 @@
+:~ $ docker network create sam
+1e26439d2b75bb2c9501ccd6ee3dd4fb847ec3687cd8f3a8788cc96fdfbd7c8b
+:~ $ docker run -p 8000:8000 --network sam --name dynamodb -d amazon/dynamodb-local
+cbfd3991defb162ba6404825a3391f3d305848332ec94f8e50be3c508ec46822
+:~ $ docker ps
+CONTAINER ID   IMAGE                   COMMAND                  CREATED              STATUS              PORTS                                       NAMES
+cbfd3991defb   amazon/dynamodb-local   "java -jar DynamoDBLâ?¦"   About a minute ago   Up About a minute   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   dynamodb
+:~ $ aws dynamodb create-table --table-name local-TodosDynamoDbTable --attribute-definitions AttributeName=id,AttributeType
+=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 --endpoint-
+url http://localhost:8000 --region us-east-1
+{
+    "TableDescription": {
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "id",
+                "AttributeType": "S"
+            }
+        ],
+        "TableName": "local-TodosDynamoDbTable",
+        "KeySchema": [
+            {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+            }
+        ],
+        "TableStatus": "ACTIVE",
+        "CreationDateTime": 1655020222.203,
+        "ProvisionedThroughput": {
+            "LastIncreaseDateTime": 0.0,
+            "LastDecreaseDateTime": 0.0,
+            "NumberOfDecreasesToday": 0,
+            "ReadCapacityUnits": 1,
+            "WriteCapacityUnits": 1
+        },
+        "TableSizeBytes": 0,
+        "ItemCount": 0,
+        "TableArn": "arn:aws:dynamodb:ddblocal:000000000000:table/local-TodosDynamoDbTable"
+    }
+}
+
+:~ $ cd todo-list-aws/
+:~/todo-list-aws (development) $ sam build
+Building codeuri: /home/ubuntu/todo-list-aws/src runtime: python3.7 metadata: {} architecture: x86_64 functions: ['CreateTodoFunction', 'ListTodosFunction', 'GetTodoFunction', 'UpdateTodoFunction', 'DeleteTodoFunction']
+Running PythonPipBuilder:ResolveDependencies
+Running PythonPipBuilder:CopySource
+
+Build Succeeded
+
+Built Artifacts  : .aws-sam/build
+Built Template   : .aws-sam/build/template.yaml
+
+Commands you can use next
+=========================
+[*] Invoke Function: sam local invoke
+[*] Deploy: sam deploy --guided
+
+:~/todo-list-aws (development) $ sam local start-api --port 8081 --env-vars localEnvironment.json --docker-network sam
+Mounting DeleteTodoFunction at http://127.0.0.1:8081/todos/{id} [DELETE]
+Mounting CreateTodoFunction at http://127.0.0.1:8081/todos [POST]
+Mounting GetTodoFunction at http://127.0.0.1:8081/todos/{id} [GET]
+Mounting UpdateTodoFunction at http://127.0.0.1:8081/todos/{id} [PUT]
+Mounting ListTodosFunction at http://127.0.0.1:8081/todos [GET]
+You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will be reflected instantly/automatically. You only need to restart SAM CLI if you update your AWS SAM template
+2022-06-12 07:54:04  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)

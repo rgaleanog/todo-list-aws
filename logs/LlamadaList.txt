@@ -1,0 +1,2 @@
+:~/todo-list-aws (development) $ curl https://7wpzvwvkb6.execute-api.us-east-1.amazonaws.com/Prod/todos
+[{"checked": false, "createdAt": "1654985053.619088", "text": "Learn Serverless", "id": "6de23b38-e9d2-11ec-a942-8e682431a020", "updatedAt": "1654985053.619088"}, {"checked": false, "createdAt": "1654983305.4994524", "text": "Integration text example", "id": "5bd9d79c-e9ce-11ec-a0ec-9e2c1059dcca", "updatedAt": "1654983305.4994524"}]

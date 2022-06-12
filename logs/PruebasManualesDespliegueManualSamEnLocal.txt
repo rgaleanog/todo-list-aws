@@ -1,0 +1,94 @@
+CREATE:
+
+Comando + Resultado:
+:~/todo-list-aws (development) $ curl -X POST http://127.0.0.1:8081/todos --data '{ "text":
+> "Learn Serverless" }'
+{"statusCode": 200, "body": "{\"id\": \"70a46680-ea26-11ec-a76c-0242ac110002\", \"text\": \"Learn Serverless\", \"checked\": false, \"createdAt\": \"1655021136.081064\", \"updatedAt\": \"1655021136.081064\"}"}
+
+Log Server:
+Mounting /home/ubuntu/todo-list-aws/.aws-sam/build/CreateTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: 63bd2de3-1378-4e13-ab22-4cb474bde71d Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+Table name:local-TodosDynamoDbTable
+END RequestId: 63bd2de3-1378-4e13-ab22-4cb474bde71d
+REPORT RequestId: 63bd2de3-1378-4e13-ab22-4cb474bde71d  Init Duration: 0.07 ms  Duration: 1535.59 ms    Billed Duration: 1536 ms    Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-06-12 08:05:36 127.0.0.1 - - [12/Jun/2022 08:05:36] "POST /todos HTTP/1.1" 200 -
+
+---------------------------------------------------------------------------------------------------------------------
+
+LIST:
+
+Comando + Resultado:
+:~/todo-list-aws (development) $ curl http://127.0.0.1:8081/todos
+[{"checked": false, "createdAt": "1655021136.081064", "id": "70a46680-ea26-11ec-a76c-0242ac110002", "text": "Learn Serverless", "updatedAt": "1655021136.081064"}]
+
+Log Server:
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/todo-list-aws/.aws-sam/build/ListTodosFunction as /var/task:ro,delegated inside runtime container
+START RequestId: 838d41c5-e4e0-481d-94d4-2b4fd186bb9c Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+END RequestId: 838d41c5-e4e0-481d-94d4-2b4fd186bb9c
+REPORT RequestId: 838d41c5-e4e0-481d-94d4-2b4fd186bb9c  Init Duration: 0.12 ms  Duration: 683.73 ms     Billed Duration: 684 ms     Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-06-12 08:08:31 127.0.0.1 - - [12/Jun/2022 08:08:31] "GET /todos HTTP/1.1" 200 -
+
+---------------------------------------------------------------------------------------------------------------------
+
+GET:
+
+Comandos + Resultado:
+:~/todo-list-aws (development) $ curl http://127.0.0.1:8081/todos/70a46680-ea26-11ec-a76c-0242ac110002
+{"checked": false, "createdAt": "1655021136.081064", "id": "70a46680-ea26-11ec-a76c-0242ac110002", "text": "Learn Serverless", "updatedAt": "1655021136.081064"}
+
+Log Server:
+Invoking get.get (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/todo-list-aws/.aws-sam/build/GetTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: 9dde9ae7-d75f-4d34-83e9-35502a381a2f Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+Result getItem:{'Item': {'checked': False, 'createdAt': '1655021136.081064', 'id': '70a46680-ea26-11ec-a76c-0242ac110002', 'text': 'Learn Serverless', 'updatedAt': '1655021136.081064'}, 'ResponseMetadata': {'RequestId': '4525b7ae-14e0-4647-963e-82c1e5d74908', 'HTTPStatusCode': 200, 'HTTPHeaders': {'date': 'Sun, 12 Jun 2022 08:10:06 GMT', 'content-type': 'application/x-amz-json-1.0', 'x-amz-crc32': '3412076928', 'x-amzn-requestid': '4525b7ae-14e0-4647-963e-82c1e5d74908', 'content-length': '193', 'server': 'Jetty(9.4.18.v20190429)'}, 'RetryAttempts': 0}}
+END RequestId: 9dde9ae7-d75f-4d34-83e9-35502a381a2f
+REPORT RequestId: 9dde9ae7-d75f-4d34-83e9-35502a381a2f  Init Duration: 0.37 ms  Duration: 786.75 ms     Billed Duration: 787 ms     Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-06-12 08:10:06 127.0.0.1 - - [12/Jun/2022 08:10:06] "GET /todos/70a46680-ea26-11ec-a76c-0242ac110002 HTTP/1.1" 200 -
+
+---------------------------------------------------------------------------------------------------------------------
+
+UPDATE:
+
+Comandos + Resultado:
+:~/todo-list-aws (development) $ curl -X PUT http://127.0.0.1:8081/todos/70a46680-ea26-11ec-a76c-0242ac110002 --data '{ "text": "Learn Serverless", "checked": true }'
+{"createdAt": "1655021136.081064", "checked": true, "id": "70a46680-ea26-11ec-a76c-0242ac110002", "text": "Learn Serverless", "updatedAt": 1655021622381}
+
+Log Server:
+Invoking update.update (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/todo-list-aws/.aws-sam/build/UpdateTodoFunction as /var/task:ro,delegated inside runtime container
+URL dynamoDB:http://dynamodb:8000
+END RequestId: bbad39f1-b732-4b91-8f01-c352511450c9
+REPORT RequestId: bbad39f1-b732-4b91-8f01-c352511450c9  Init Duration: 0.33 ms  Duration: 628.67 ms     Billed Duration: 629 ms     Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-06-12 08:13:42 127.0.0.1 - - [12/Jun/2022 08:13:42] "PUT /todos/70a46680-ea26-11ec-a76c-0242ac110002 HTTP/1.1" 200 -
+
+---------------------------------------------------------------------------------------------------------------------
+
+DELETE:
+
+Comandos + Resultado:
+:~/todo-list-aws (development) $ curl -X DELETE http://127.0.0.1:8081/todos/70a46680-ea26-11ec-a76c-0242ac110002
+
+Log Server:
+Invoking delete.delete (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/todo-list-aws/.aws-sam/build/DeleteTodoFunction as /var/task:ro,delegated inside runtime container
+URL dynamoDB:http://dynamodb:8000
+END RequestId: 89eedd8c-be48-4baf-ba14-509bc09cfac8
+REPORT RequestId: 89eedd8c-be48-4baf-ba14-509bc09cfac8  Init Duration: 0.27 ms  Duration: 585.87 ms     Billed Duration: 586 ms     Memory Size: 128 MB     Max Memory Used: 128 MB
+Lambda returned empty body!
+No Content-Type given. Defaulting to 'application/json'.
+2022-06-12 08:15:53 127.0.0.1 - - [12/Jun/2022 08:15:53] "DELETE /todos/70a46680-ea26-11ec-a76c-0242ac110002 HTTP/1.1" 200 -

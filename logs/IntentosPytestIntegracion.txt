@@ -1,0 +1,162 @@
+:~/todo-list-aws (development) $ pytest -s test/integration/todoApiTest.py
+================================================= test session starts ==================================================
+platform linux2 -- Python 2.7.17, pytest-4.6.11, py-1.11.0, pluggy-0.13.1
+rootdir: /home/ubuntu/todo-list-aws, inifile: pytest.ini
+collected 0 items / 1 errors
+
+======================================================== ERRORS ========================================================
+___________________________________ ERROR collecting test/integration/todoApiTest.py ___________________________________
+../.local/lib/python2.7/site-packages/_pytest/python.py:507: in _importtestmodule
+    mod = self.fspath.pyimport(ensuresyspath=importmode)
+../.local/lib/python2.7/site-packages/py/_path/local.py:704: in pyimport
+    __import__(modname)
+E     File "/home/ubuntu/todo-list-aws/test/integration/todoApiTest.py", line 37
+E   SyntaxError: Non-ASCII character '\xc3' in file /home/ubuntu/todo-list-aws/test/integration/todoApiTest.py on line 37, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 1 errors during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+=============================================== 1 error in 0.11 seconds ================================================
+
+
+
+******************************************************************************
+#### Se modifica el archivo para añadir en la primera línea #coding=utf-8 ####
+******************************************************************************
+
+
+
+:~/todo-list-aws (development) $ nano test/integration/todoApiTest.py                                                   :~/todo-list-aws (development) $ pytest -s test/integration/todoApiTest.py
+================================================= test session starts ==================================================
+platform linux2 -- Python 2.7.17, pytest-4.6.11, py-1.11.0, pluggy-0.13.1
+rootdir: /home/ubuntu/todo-list-aws, inifile: pytest.ini
+collected 0 items / 1 errors
+
+======================================================== ERRORS ========================================================
+___________________________________ ERROR collecting test/integration/todoApiTest.py ___________________________________
+ImportError while importing test module '/home/ubuntu/todo-list-aws/test/integration/todoApiTest.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+test/integration/todoApiTest.py:2: in <module>
+    import http.client
+E   ImportError: No module named http.client
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 1 errors during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+=============================================== 1 error in 0.08 seconds ================================================
+
+
+
+*****************************************************************************************
+#### Se instala pytest desde python3 y no desde python porque coge la versión 2.7 ¬¬ ####
+*****************************************************************************************
+
+
+
+:~/todo-list-aws (development) $ pytest -s test/integration/todoApiTest.py
+================================================= test session starts ==================================================
+platform linux -- Python 3.6.9, pytest-7.0.1, pluggy-1.0.0
+rootdir: /home/ubuntu/todo-list-aws, configfile: pytest.ini
+collected 5 items
+
+test/integration/todoApiTest.py FFFFF
+
+======================================================= FAILURES =======================================================
+_______________________________________________ TestApi.test_api_addtodo _______________________________________________
+
+self = <todoApiTest.TestApi testMethod=test_api_addtodo>
+
+    def setUp(self):
+>       self.assertIsNotNone(BASE_URL, "URL no configurada")
+E       AssertionError: unexpectedly None : URL no configurada
+
+test/integration/todoApiTest.py:20: AssertionError
+_____________________________________________ TestApi.test_api_deletetodo ______________________________________________
+
+self = <todoApiTest.TestApi testMethod=test_api_deletetodo>
+
+    def setUp(self):
+>       self.assertIsNotNone(BASE_URL, "URL no configurada")
+E       AssertionError: unexpectedly None : URL no configurada
+
+test/integration/todoApiTest.py:20: AssertionError
+_______________________________________________ TestApi.test_api_gettodo _______________________________________________
+
+self = <todoApiTest.TestApi testMethod=test_api_gettodo>
+
+    def setUp(self):
+>       self.assertIsNotNone(BASE_URL, "URL no configurada")
+E       AssertionError: unexpectedly None : URL no configurada
+
+test/integration/todoApiTest.py:20: AssertionError
+______________________________________________ TestApi.test_api_listtodos ______________________________________________
+
+self = <todoApiTest.TestApi testMethod=test_api_listtodos>
+
+    def setUp(self):
+>       self.assertIsNotNone(BASE_URL, "URL no configurada")
+E       AssertionError: unexpectedly None : URL no configurada
+
+test/integration/todoApiTest.py:20: AssertionError
+_____________________________________________ TestApi.test_api_updatetodo ______________________________________________
+
+self = <todoApiTest.TestApi testMethod=test_api_updatetodo>
+
+    def setUp(self):
+>       self.assertIsNotNone(BASE_URL, "URL no configurada")
+E       AssertionError: unexpectedly None : URL no configurada
+
+test/integration/todoApiTest.py:20: AssertionError
+=============================================== short test summary info ================================================
+FAILED test/integration/todoApiTest.py::TestApi::test_api_addtodo - AssertionError: unexpectedly None : URL no config...
+FAILED test/integration/todoApiTest.py::TestApi::test_api_deletetodo - AssertionError: unexpectedly None : URL no con...
+FAILED test/integration/todoApiTest.py::TestApi::test_api_gettodo - AssertionError: unexpectedly None : URL no config...
+FAILED test/integration/todoApiTest.py::TestApi::test_api_listtodos - AssertionError: unexpectedly None : URL no conf...
+FAILED test/integration/todoApiTest.py::TestApi::test_api_updatetodo - AssertionError: unexpectedly None : URL no con...
+================================================== 5 failed in 0.30s ===================================================
+
+
+
+*****************************************************************************************
+#### Configuro la variable de entorno BASE_URL ya que no la coge de ningún sitio ¬¬' ####
+*****************************************************************************************
+
+
+
+:~/todo-list-aws (development) $ pytest -s test/integration/todoApiTest.py
+================================================= test session starts ==================================================
+platform linux -- Python 3.6.9, pytest-7.0.1, pluggy-1.0.0
+rootdir: /home/ubuntu/todo-list-aws, configfile: pytest.ini
+collected 5 items
+
+test/integration/todoApiTest.py ---------------------------------------
+Starting - integration test Add TODO
+Response Add Todo: {"id": "57f711ee-e9ce-11ec-a0ec-9e2c1059dcca", "text": "Integration text example", "checked": false, "createdAt": "1654983298.8588307", "updatedAt": "1654983298.8588307"}
+ID todo:57f711ee-e9ce-11ec-a0ec-9e2c1059dcca
+End - integration test Add TODO
+.---------------------------------------
+Starting - integration test Delete TODO
+Response Add todo: {"id": "598a2ff0-e9ce-11ec-a0ec-9e2c1059dcca", "text": "Integration text example - Initial", "checked": false, "createdAt": "1654983301.6404471", "updatedAt": "1654983301.6404471"}
+ID todo:598a2ff0-e9ce-11ec-a0ec-9e2c1059dcca
+Response Delete Todo:<Response [200]>
+Response Get Todo https://7wpzvwvkb6.execute-api.us-east-1.amazonaws.com/Prod//todos/598a2ff0-e9ce-11ec-a0ec-9e2c1059dcca: <Response [404]>
+End - integration test Delete TODO
+.---------------------------------------
+Starting - integration test Get TODO
+Response Add Todo: {'statusCode': 200, 'body': '{"id": "5b4dcbf8-e9ce-11ec-a0ec-9e2c1059dcca", "text": "Integration text example - GET", "checked": false, "createdAt": "1654983304.6001103", "updatedAt": "1654983304.6001103"}'}
+ID todo:5b4dcbf8-e9ce-11ec-a0ec-9e2c1059dcca
+Response Get Todo: {'checked': False, 'createdAt': '1654983304.6001103', 'text': 'Integration text example - GET', 'id': '5b4dcbf8-e9ce-11ec-a0ec-9e2c1059dcca', 'updatedAt': '1654983304.6001103'}
+End - integration test Get TODO
+.---------------------------------------
+Starting - integration test List TODO
+Response Add Todo: {'statusCode': 200, 'body': '{"id": "5bd9d79c-e9ce-11ec-a0ec-9e2c1059dcca", "text": "Integration text example", "checked": false, "createdAt": "1654983305.4994524", "updatedAt": "1654983305.4994524"}'}
+ID todo:5bd9d79c-e9ce-11ec-a0ec-9e2c1059dcca
+Response List Todo:[{'checked': False, 'createdAt': '1654983305.4994524', 'text': 'Integration text example', 'id': '5bd9d79c-e9ce-11ec-a0ec-9e2c1059dcca', 'updatedAt': '1654983305.4994524'}]
+End - integration test List TODO
+.---------------------------------------
+Starting - integration test Update TODO
+Response Add todo: {"id": "5d6cc560-e9ce-11ec-a0ec-9e2c1059dcca", "text": "Integration text example - Initial", "checked": false, "createdAt": "1654983308.1585176", "updatedAt": "1654983308.1585176"}
+ID todo:5d6cc560-e9ce-11ec-a0ec-9e2c1059dcca
+Response Update todo: {'checked': 'true', 'createdAt': '1654983308.1585176', 'text': 'Integration text example - Modified', 'id': '5d6cc560-e9ce-11ec-a0ec-9e2c1059dcca', 'updatedAt': 1654983310248}
+Response Get Todo: {'checked': 'true', 'createdAt': '1654983308.1585176', 'text': 'Integration text example - Modified', 'id': '5d6cc560-e9ce-11ec-a0ec-9e2c1059dcca', 'updatedAt': 1654983310248}
+End - integration test Update TODO
+.
+
+================================================== 5 passed in 14.24s ==================================================
+
+

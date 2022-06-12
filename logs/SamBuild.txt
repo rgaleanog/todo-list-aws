@@ -1,0 +1,14 @@
+:~/todo-list-aws (development) $ sam build
+Building codeuri: /home/ubuntu/todo-list-aws/src runtime: python3.7 metadata: {} architecture: x86_64 functions: ['CreateTodoFunction', 'ListTodosFunction', 'GetTodoFunction', 'UpdateTodoFunction', 'DeleteTodoFunction']
+Running PythonPipBuilder:ResolveDependencies
+Running PythonPipBuilder:CopySource
+
+Build Succeeded
+
+Built Artifacts  : .aws-sam/build
+Built Template   : .aws-sam/build/template.yaml
+
+Commands you can use next
+=========================
+[*] Invoke Function: sam local invoke
+[*] Deploy: sam deploy --guided

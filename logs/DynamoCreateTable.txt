@@ -1,0 +1,32 @@
+:~/todo-list-aws (development) $ aws dynamodb create-table --table-name local-TodosDynamoDbTable --attribute-definition
+s AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnit
+s=1,WriteCapacityUnits=1 --endpoint-url http://localhost:8000 --region us-east-1
+{
+    "TableDescription": {
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "id",
+                "AttributeType": "S"
+            }
+        ],
+        "TableName": "local-TodosDynamoDbTable",
+        "KeySchema": [
+            {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+            }
+        ],
+        "TableStatus": "ACTIVE",
+        "CreationDateTime": 1654981681.551,
+        "ProvisionedThroughput": {
+            "LastIncreaseDateTime": 0.0,
+            "LastDecreaseDateTime": 0.0,
+            "NumberOfDecreasesToday": 0,
+            "ReadCapacityUnits": 1,
+            "WriteCapacityUnits": 1
+        },
+        "TableSizeBytes": 0,
+        "ItemCount": 0,
+        "TableArn": "arn:aws:dynamodb:ddblocal:000000000000:table/local-TodosDynamoDbTable"
+    }
+}
