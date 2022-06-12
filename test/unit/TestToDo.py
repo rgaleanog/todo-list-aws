@@ -83,6 +83,22 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
 
+        #Prueba que no tengo ni idea de para que mierda sirve
+        from src.todoList import get_table
+        from unittest.mock import Mock
+
+        self.table = get_table(self.dynamodb)
+        self.table = Mock()
+        print ('Table Mocked')
+
+        from botocore.exceptions import ClientError
+        #Depende de que haga el metodo a probar sera put, post, etc....
+        self.table.put_item.side_effect =  ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
+            os.environ['DYNAMODB_TABLE'])
+
+        from src.todoList import put_item
+        self.assertRaises(Exception, put_item("", self.dynamodb)) 
+
     def test_get_todo(self):
         print ('---------------------')
         print ('Start: test_get_todo')
