@@ -1,0 +1,58 @@
+:~/todo-list-aws (feature) $ sam deploy --guided
+
+Configuring SAM deploy
+======================
+
+        Looking for config file [samconfig.toml] :  Found
+        Reading default arguments  :  Success
+
+        Setting default arguments for 'sam deploy'
+        =========================================
+        Stack Name [todo-list-aws]: todo-list-aws
+        AWS Region [us-east-1]: us-east-1
+        Parameter Stage [default]: default
+        #Shows you resources changes to be deployed and require a 'Y' to initiate deploy
+        Confirm changes before deploy [y/N]: Y
+        #SAM needs permission to be able to create roles to connect to the resources in your template
+        Allow SAM CLI IAM role creation [Y/n]: Y
+        CreateTodoFunction may not have authorization defined, Is this okay? [y/N]: y
+        ListTodosFunction may not have authorization defined, Is this okay? [y/N]: y
+        GetTodoFunction may not have authorization defined, Is this okay? [y/N]: y
+        UpdateTodoFunction may not have authorization defined, Is this okay? [y/N]: y
+        DeleteTodoFunction may not have authorization defined, Is this okay? [y/N]: y
+        Save arguments to configuration file [Y/n]: Y
+        SAM configuration file [samconfig.toml]:
+        SAM configuration environment [default]:
+
+        Looking for resources needed for deployment:
+         Managed S3 bucket: aws-sam-cli-managed-default-samclisourcebucket-y3vzv8t5cmu
+         A different default S3 bucket can be set in samconfig.toml
+
+        Saved arguments to config file
+        Running 'sam deploy' for future deployments will use the parameters saved above.
+        The above parameters can be changed by modifying samconfig.toml
+        Learn more about samconfig.toml syntax at
+        https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+
+File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload
+File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload
+File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload
+File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload
+File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload
+
+        Deploying with following values
+        ===============================
+        Stack name                   : todo-list-aws
+        Region                       : us-east-1
+        Confirm changeset            : True
+        Deployment s3 bucket         : aws-sam-cli-managed-default-samclisourcebucket-y3vzv8t5cmu
+        Capabilities                 : ["CAPABILITY_IAM"]
+        Parameter overrides          : {"Stage": "default"}
+        Signing Profiles             : {}
+
+Initiating deployment
+=====================
+File with same data already exists at todo-list-aws/47475b27fd7ea3bb8e307858eb632403.template, skipping upload
+
+Waiting for changeset to be created..
+Error: No changes to deploy. Stack todo-list-aws is up to date

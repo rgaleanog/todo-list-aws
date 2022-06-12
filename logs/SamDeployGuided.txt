@@ -1,0 +1,333 @@
+Sin archivo TOML:
+
+:~/todo-list-aws (development) $ sam deploy --guided
+
+Configuring SAM deploy
+======================
+
+        Looking for config file [samconfig.toml] :  Found
+        Reading default arguments  :  Success
+
+        Setting default arguments for 'sam deploy'
+        =========================================
+        Stack Name [todo-list-aws]: todo-list-aws
+        AWS Region [us-east-1]: us-east-1
+        Parameter Stage [default]: default
+        #Shows you resources changes to be deployed and require a 'Y' to initiate deploy
+        Confirm changes before deploy [y/N]: y
+        #SAM needs permission to be able to create roles to connect to the resources in your template
+        Allow SAM CLI IAM role creation [Y/n]: y
+        CreateTodoFunction may not have authorization defined, Is this okay? [y/N]: y
+        ListTodosFunction may not have authorization defined, Is this okay? [y/N]: y
+        GetTodoFunction may not have authorization defined, Is this okay? [y/N]: y
+        UpdateTodoFunction may not have authorization defined, Is this okay? [y/N]: y
+        DeleteTodoFunction may not have authorization defined, Is this okay? [y/N]: y
+        Save arguments to configuration file [Y/n]: y
+		SAM configuration file [samconfig.toml]:
+        SAM configuration environment [default]:
+
+        Looking for resources needed for deployment:
+        Creating the required resources...
+		Successfully created!
+         Managed S3 bucket: aws-sam-cli-managed-default-samclisourcebucket-y3vzv8t5cmu
+         A different default S3 bucket can be set in samconfig.toml
+		 
+		Saved arguments to config file
+        Running 'sam deploy' for future deployments will use the parameters saved above.
+        The above parameters can be changed by modifying samconfig.toml
+        Learn more about samconfig.toml syntax at
+        https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+		
+Uploading to todo-list-aws/6f294efba71da4704ae54cf23e8dbf91  460965 / 460965  (100.00%)
+File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload
+File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload
+File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload
+File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload
+
+        Deploying with following values
+        ===============================
+        Stack name                   : todo-list-aws
+        Region                       : us-east-1
+        Confirm changeset            : True
+        Deployment s3 bucket         : aws-sam-cli-managed-default-samclisourcebucket-y3vzv8t5cmu
+        Capabilities                 : ["CAPABILITY_IAM"]
+        Parameter overrides          : {"Stage": "default"}
+        Signing Profiles             : {}
+
+Initiating deployment
+=====================
+Uploading to todo-list-aws/47475b27fd7ea3bb8e307858eb632403.template  4305 / 4305  (100.00%)
+
+Waiting for changeset to be created..
+
+CloudFormation stack changeset
+---------------------------------------------------------------------------------------------------------------------
+Operation                     LogicalResourceId             ResourceType                  Replacement
+---------------------------------------------------------------------------------------------------------------------
++ Add                         CreateTodoFunctionCreatePer   AWS::Lambda::Permission       N/A
+                              missionProd
++ Add                         CreateTodoFunction            AWS::Lambda::Function         N/A
++ Add                         DeleteTodoFunctionCreatePer   AWS::Lambda::Permission       N/A
+                              missionProd
++ Add                         DeleteTodoFunction            AWS::Lambda::Function         N/A
++ Add                         GetTodoFunctionCreatePermis   AWS::Lambda::Permission       N/A
+                              sionProd
++ Add                         GetTodoFunction               AWS::Lambda::Function         N/A
++ Add                         ListTodosFunctionCreatePerm   AWS::Lambda::Permission       N/A
+                              issionProd
++ Add                         ListTodosFunction             AWS::Lambda::Function         N/A
++ Add                         ServerlessRestApiDeployment   AWS::ApiGateway::Deployment   N/A
+                              141b842de6
++ Add                         ServerlessRestApiProdStage    AWS::ApiGateway::Stage        N/A
++ Add                         ServerlessRestApi             AWS::ApiGateway::RestApi      N/A
++ Add                         TodosDynamoDbTable            AWS::DynamoDB::Table          N/A
++ Add                         UpdateTodoFunctionCreatePer   AWS::Lambda::Permission       N/A
+                              missionProd
++ Add                         UpdateTodoFunction            AWS::Lambda::Function         N/A
+---------------------------------------------------------------------------------------------------------------------
+
+Changeset created successfully. arn:aws:cloudformation:us-east-1:339348174181:changeSet/samcli-deploy1654972832/1ce71a91-0525-408d-b2b8-cc36cacf6754
+
+
+Previewing CloudFormation changeset before deployment
+======================================================
+Deploy this changeset? [y/N]:y
+
+2022-06-11 18:41:02 - Waiting for stack create/update to complete
+
+CloudFormation events from changeset
+---------------------------------------------------------------------------------------------------------------------
+ResourceStatus                ResourceType                  LogicalResourceId             ResourceStatusReason
+---------------------------------------------------------------------------------------------------------------------
+CREATE_IN_PROGRESS            AWS::DynamoDB::Table          TodosDynamoDbTable            -
+CREATE_IN_PROGRESS            AWS::DynamoDB::Table          TodosDynamoDbTable            Resource creation Initiated
+CREATE_COMPLETE               AWS::DynamoDB::Table          TodosDynamoDbTable            -
+CREATE_IN_PROGRESS            AWS::Lambda::Function         ListTodosFunction             -
+CREATE_IN_PROGRESS            AWS::Lambda::Function         CreateTodoFunction            -
+CREATE_IN_PROGRESS            AWS::Lambda::Function         DeleteTodoFunction            -
+CREATE_IN_PROGRESS            AWS::Lambda::Function         GetTodoFunction               -
+CREATE_IN_PROGRESS            AWS::Lambda::Function         UpdateTodoFunction            -
+CREATE_IN_PROGRESS            AWS::Lambda::Function         CreateTodoFunction            Resource creation Initiated
+CREATE_IN_PROGRESS            AWS::Lambda::Function         UpdateTodoFunction            Resource creation Initiated
+CREATE_IN_PROGRESS            AWS::Lambda::Function         ListTodosFunction             Resource creation Initiated
+CREATE_IN_PROGRESS            AWS::Lambda::Function         DeleteTodoFunction            Resource creation Initiated
+CREATE_IN_PROGRESS            AWS::Lambda::Function         GetTodoFunction               Resource creation Initiated
+CREATE_COMPLETE               AWS::Lambda::Function         UpdateTodoFunction            -
+CREATE_COMPLETE               AWS::Lambda::Function         DeleteTodoFunction            -
+CREATE_COMPLETE               AWS::Lambda::Function         ListTodosFunction             -
+CREATE_COMPLETE               AWS::Lambda::Function         GetTodoFunction               -
+CREATE_COMPLETE               AWS::Lambda::Function         CreateTodoFunction            -
+CREATE_IN_PROGRESS            AWS::ApiGateway::RestApi      ServerlessRestApi             -
+CREATE_IN_PROGRESS            AWS::ApiGateway::RestApi      ServerlessRestApi             Resource creation Initiated
+CREATE_COMPLETE               AWS::ApiGateway::RestApi      ServerlessRestApi             -
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       CreateTodoFunctionCreatePer   -
+                                                            missionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       UpdateTodoFunctionCreatePer   -
+                                                            missionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       GetTodoFunctionCreatePermis   -
+                                                            sionProd
+CREATE_IN_PROGRESS            AWS::ApiGateway::Deployment   ServerlessRestApiDeployment   -
+                                                            141b842de6
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       ListTodosFunctionCreatePerm   -
+                                                            issionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       UpdateTodoFunctionCreatePer   Resource creation Initiated
+                                                            missionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       CreateTodoFunctionCreatePer   Resource creation Initiated
+                                                            missionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       GetTodoFunctionCreatePermis   Resource creation Initiated
+                                                            sionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       DeleteTodoFunctionCreatePer   -
+                                                            missionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       ListTodosFunctionCreatePerm   Resource creation Initiated
+                                                            issionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       DeleteTodoFunctionCreatePer   Resource creation Initiated
+                                                            missionProd
+CREATE_IN_PROGRESS            AWS::ApiGateway::Deployment   ServerlessRestApiDeployment   Resource creation Initiated
+                                                            141b842de6
+CREATE_COMPLETE               AWS::ApiGateway::Deployment   ServerlessRestApiDeployment   -
+                                                            141b842de6
+CREATE_IN_PROGRESS            AWS::ApiGateway::Stage        ServerlessRestApiProdStage    -
+CREATE_IN_PROGRESS            AWS::ApiGateway::Stage        ServerlessRestApiProdStage    Resource creation Initiated
+CREATE_COMPLETE               AWS::ApiGateway::Stage        ServerlessRestApiProdStage    -
+CREATE_COMPLETE               AWS::Lambda::Permission       UpdateTodoFunctionCreatePer   -
+                                                            missionProd
+CREATE_COMPLETE               AWS::Lambda::Permission       CreateTodoFunctionCreatePer   -
+                                                            missionProd
+CREATE_COMPLETE               AWS::Lambda::Permission       GetTodoFunctionCreatePermis   -
+                                                            sionProd
+CREATE_COMPLETE               AWS::Lambda::Permission       ListTodosFunctionCreatePerm   -
+                                                            issionProd
+CREATE_COMPLETE               AWS::Lambda::Permission       DeleteTodoFunctionCreatePer   -
+                                                            missionProd
+CREATE_COMPLETE               AWS::CloudFormation::Stack    todo-list-aws                 -
+---------------------------------------------------------------------------------------------------------------------
+
+CloudFormation outputs from deployed stack
+---------------------------------------------------------------------------------------------------------------------
+Outputs
+---------------------------------------------------------------------------------------------------------------------
+Key                 BaseUrlApi
+Description         Base URL of API
+Value               https://7wpzvwvkb6.execute-api.us-east-1.amazonaws.com/Prod
+
+Key                 DeleteTodoApi
+Description         API Gateway endpoint URL for ${opt:stage} stage for Delete TODO
+Value               https://7wpzvwvkb6.execute-api.us-east-1.amazonaws.com/Prod/todos/{id}
+
+Key                 ListTodosApi
+Description         API Gateway endpoint URL for ${opt:stage} stage for List TODO
+Value               https://7wpzvwvkb6.execute-api.us-east-1.amazonaws.com/Prod/todos
+
+Key                 UpdateTodoApi
+Description         API Gateway endpoint URL for ${opt:stage} stage for Update TODO
+Value               https://7wpzvwvkb6.execute-api.us-east-1.amazonaws.com/Prod/todos/{id}
+
+Key                 GetTodoApi
+Description         API Gateway endpoint URL for ${opt:stage} stage for Get TODO
+Value               https://7wpzvwvkb6.execute-api.us-east-1.amazonaws.com/Prod/todos/{id}
+
+Key                 CreateTodoApi
+Description         API Gateway endpoint URL for ${opt:stage} stage for Create TODO
+Value               https://7wpzvwvkb6.execute-api.us-east-1.amazonaws.com/Prod/todos/
+---------------------------------------------------------------------------------------------------------------------
+
+Successfully created/updated stack - todo-list-aws in us-east-1
+
+Con archivo toml modificado con los buckets creados al tun tun:
+:~/todo-list-aws (development) $ nano samconfig.toml                                                                    :~/todo-list-aws (development) $ sam deploy template.yaml --config-env staging                                          Uploading to todo-list-aws/6f294efba71da4704ae54cf23e8dbf91  460965 / 460965  (100.00%)                                 File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload                   File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload                   File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload                   File with same data already exists at todo-list-aws/6f294efba71da4704ae54cf23e8dbf91, skipping upload                                                                                                                                                   Deploying with following values                                                                                         ===============================                                                                                         Stack name                   : todo-list-aws-staging                                                                    Region                       : us-east-1                                                                                Confirm changeset            : False                                                                                    Deployment s3 bucket         : aws-sam-cli-managed-staging-samclisourcebucket-220611                                    Capabilities                 : ["CAPABILITY_IAM"]                                                                       Parameter overrides          : {"Stage": "staging"}
+        Signing Profiles             : {}
+
+Initiating deployment
+=====================
+Uploading to todo-list-aws/89e1f84f7b9e1af8f1a4e017952c80b0.template  4280 / 4280  (100.00%)
+
+Waiting for changeset to be created..
+
+CloudFormation stack changeset
+---------------------------------------------------------------------------------------------------------------------
+Operation                     LogicalResourceId             ResourceType                  Replacement
+---------------------------------------------------------------------------------------------------------------------
++ Add                         CreateTodoFunctionCreatePer   AWS::Lambda::Permission       N/A
+                              missionProd
++ Add                         CreateTodoFunction            AWS::Lambda::Function         N/A
++ Add                         DeleteTodoFunctionCreatePer   AWS::Lambda::Permission       N/A
+                              missionProd
++ Add                         DeleteTodoFunction            AWS::Lambda::Function         N/A
++ Add                         GetTodoFunctionCreatePermis   AWS::Lambda::Permission       N/A
+                              sionProd
++ Add                         GetTodoFunction               AWS::Lambda::Function         N/A
++ Add                         ListTodosFunctionCreatePerm   AWS::Lambda::Permission       N/A
+                              issionProd
++ Add                         ListTodosFunction             AWS::Lambda::Function         N/A
++ Add                         ServerlessRestApiDeployment   AWS::ApiGateway::Deployment   N/A
+                              141b842de6
++ Add                         ServerlessRestApiProdStage    AWS::ApiGateway::Stage        N/A
++ Add                         ServerlessRestApi             AWS::ApiGateway::RestApi      N/A
++ Add                         TodosDynamoDbTable            AWS::DynamoDB::Table          N/A
++ Add                         UpdateTodoFunctionCreatePer   AWS::Lambda::Permission       N/A
+                              missionProd
++ Add                         UpdateTodoFunction            AWS::Lambda::Function         N/A
+---------------------------------------------------------------------------------------------------------------------
+
+Changeset created successfully. arn:aws:cloudformation:us-east-1:339348174181:changeSet/samcli-deploy1654974542/1218b96c-cf30-4f4a-8959-ff3fd1f20385
+
+
+2022-06-11 19:09:13 - Waiting for stack create/update to complete
+
+CloudFormation events from changeset
+---------------------------------------------------------------------------------------------------------------------
+ResourceStatus                ResourceType                  LogicalResourceId             ResourceStatusReason
+---------------------------------------------------------------------------------------------------------------------
+CREATE_IN_PROGRESS            AWS::DynamoDB::Table          TodosDynamoDbTable            -
+CREATE_IN_PROGRESS            AWS::DynamoDB::Table          TodosDynamoDbTable            Resource creation Initiated
+CREATE_COMPLETE               AWS::DynamoDB::Table          TodosDynamoDbTable            -
+CREATE_IN_PROGRESS            AWS::Lambda::Function         CreateTodoFunction            -
+CREATE_IN_PROGRESS            AWS::Lambda::Function         ListTodosFunction             -
+CREATE_IN_PROGRESS            AWS::Lambda::Function         GetTodoFunction               -
+CREATE_IN_PROGRESS            AWS::Lambda::Function         DeleteTodoFunction            -
+CREATE_IN_PROGRESS            AWS::Lambda::Function         UpdateTodoFunction            -
+CREATE_IN_PROGRESS            AWS::Lambda::Function         ListTodosFunction             Resource creation Initiated
+CREATE_IN_PROGRESS            AWS::Lambda::Function         CreateTodoFunction            Resource creation Initiated
+CREATE_IN_PROGRESS            AWS::Lambda::Function         DeleteTodoFunction            Resource creation Initiated
+CREATE_IN_PROGRESS            AWS::Lambda::Function         UpdateTodoFunction            Resource creation Initiated
+CREATE_IN_PROGRESS            AWS::Lambda::Function         GetTodoFunction               Resource creation Initiated
+CREATE_COMPLETE               AWS::Lambda::Function         UpdateTodoFunction            -
+CREATE_COMPLETE               AWS::Lambda::Function         CreateTodoFunction            -
+CREATE_COMPLETE               AWS::Lambda::Function         ListTodosFunction             -
+CREATE_COMPLETE               AWS::Lambda::Function         DeleteTodoFunction            -
+CREATE_COMPLETE               AWS::Lambda::Function         GetTodoFunction               -
+CREATE_IN_PROGRESS            AWS::ApiGateway::RestApi      ServerlessRestApi             -
+CREATE_IN_PROGRESS            AWS::ApiGateway::RestApi      ServerlessRestApi             Resource creation Initiated
+CREATE_COMPLETE               AWS::ApiGateway::RestApi      ServerlessRestApi             -
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       ListTodosFunctionCreatePerm   -
+                                                            issionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       ListTodosFunctionCreatePerm   Resource creation Initiated
+                                                            issionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       CreateTodoFunctionCreatePer   -
+                                                            missionProd
+CREATE_IN_PROGRESS            AWS::ApiGateway::Deployment   ServerlessRestApiDeployment   -
+                                                            141b842de6
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       DeleteTodoFunctionCreatePer   -
+                                                            missionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       CreateTodoFunctionCreatePer   Resource creation Initiated
+                                                            missionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       UpdateTodoFunctionCreatePer   -
+                                                            missionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       DeleteTodoFunctionCreatePer   Resource creation Initiated
+                                                            missionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       GetTodoFunctionCreatePermis   -
+                                                            sionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       GetTodoFunctionCreatePermis   Resource creation Initiated
+                                                            sionProd
+CREATE_IN_PROGRESS            AWS::Lambda::Permission       UpdateTodoFunctionCreatePer   Resource creation Initiated
+                                                            missionProd
+CREATE_IN_PROGRESS            AWS::ApiGateway::Deployment   ServerlessRestApiDeployment   Resource creation Initiated
+                                                            141b842de6
+CREATE_COMPLETE               AWS::ApiGateway::Deployment   ServerlessRestApiDeployment   -
+                                                            141b842de6
+CREATE_IN_PROGRESS            AWS::ApiGateway::Stage        ServerlessRestApiProdStage    -
+CREATE_IN_PROGRESS            AWS::ApiGateway::Stage        ServerlessRestApiProdStage    Resource creation Initiated
+CREATE_COMPLETE               AWS::ApiGateway::Stage        ServerlessRestApiProdStage    -
+CREATE_COMPLETE               AWS::Lambda::Permission       CreateTodoFunctionCreatePer   -
+                                                            missionProd
+CREATE_COMPLETE               AWS::Lambda::Permission       DeleteTodoFunctionCreatePer   -
+                                                            missionProd
+CREATE_COMPLETE               AWS::Lambda::Permission       ListTodosFunctionCreatePerm   -
+                                                            issionProd
+CREATE_COMPLETE               AWS::Lambda::Permission       GetTodoFunctionCreatePermis   -
+                                                            sionProd
+CREATE_COMPLETE               AWS::Lambda::Permission       UpdateTodoFunctionCreatePer   -
+                                                            missionProd
+CREATE_COMPLETE               AWS::CloudFormation::Stack    todo-list-aws-staging         -
+---------------------------------------------------------------------------------------------------------------------
+
+CloudFormation outputs from deployed stack
+---------------------------------------------------------------------------------------------------------------------
+Outputs
+---------------------------------------------------------------------------------------------------------------------
+Key                 BaseUrlApi
+Description         Base URL of API
+Value               https://i6zdb5ympe.execute-api.us-east-1.amazonaws.com/Prod
+
+Key                 DeleteTodoApi
+Description         API Gateway endpoint URL for ${opt:stage} stage for Delete TODO
+Value               https://i6zdb5ympe.execute-api.us-east-1.amazonaws.com/Prod/todos/{id}
+
+Key                 ListTodosApi
+Description         API Gateway endpoint URL for ${opt:stage} stage for List TODO
+Value               https://i6zdb5ympe.execute-api.us-east-1.amazonaws.com/Prod/todos
+
+Key                 UpdateTodoApi
+Description         API Gateway endpoint URL for ${opt:stage} stage for Update TODO
+Value               https://i6zdb5ympe.execute-api.us-east-1.amazonaws.com/Prod/todos/{id}
+
+Key                 GetTodoApi
+Description         API Gateway endpoint URL for ${opt:stage} stage for Get TODO
+Value               https://i6zdb5ympe.execute-api.us-east-1.amazonaws.com/Prod/todos/{id}
+
+Key                 CreateTodoApi
+Description         API Gateway endpoint URL for ${opt:stage} stage for Create TODO
+Value               https://i6zdb5ympe.execute-api.us-east-1.amazonaws.com/Prod/todos/
+---------------------------------------------------------------------------------------------------------------------
+
+Successfully created/updated stack - todo-list-aws-staging in us-east-1
