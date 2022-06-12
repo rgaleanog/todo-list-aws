@@ -78,7 +78,7 @@ docker network create sam
 docker run -p 8000:8000 --network sam --name dynamodb -d amazon/dynamodb-local
 
 ## Crear la tabla en local, para poder trabajar localmemte
-aws dynamodb create-table --table-name local-TodosDynamoDbTable --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
+aws dynamodb create-table --table-name local-TodosDynamoDbTable --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 --endpoint-url http://localhost:8000 --region us-east-1
 
 ## Empaquetar sam
 sam build # también se puede usar sam build --use-container si se dan problemas con las librerías de python
@@ -154,7 +154,7 @@ Para la implementación del CI/CD de la aplicación se utilizan los siguientes P
 Para borrar la apliación y eliminar los stacks creados ejecutar los siguientes comandos:
 
 ```bash
-aws cloudformation delete-stack --stack-name todo-list-aws-staging
-aws cloudformation delete-stack --stack-name todo-list-aws-production
+aws cloudformation delete-stack --stack-name todo-list-aws-staging --region us-east-1
+aws cloudformation delete-stack --stack-name todo-list-aws-production --region us-east-1
 ```
 
