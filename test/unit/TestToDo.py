@@ -155,7 +155,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         self.table.get_item.side_effect = self.dbException """
 
-        if 1:
+        if 0:
             mock_table(self)
         else:
             from src.todoList import get_table
