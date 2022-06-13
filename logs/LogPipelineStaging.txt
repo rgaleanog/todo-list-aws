@@ -1,0 +1,778 @@
+Started by user Javier Martinez
+Obtained pipelines/PIPELINE-FULL-STAGING/Jenkinsfile from git git@github.com:javierma84/todo-list-aws.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/PIPELINE-FULL-STAGING
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github
+Cloning the remote Git repository
+Cloning repository git@github.com:javierma84/todo-list-aws.git
+ > git init /var/lib/jenkins/workspace/PIPELINE-FULL-STAGING # timeout=10
+Fetching upstream changes from git@github.com:javierma84/todo-list-aws.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.17.1'
+using GIT_SSH to set credentials 
+ > git fetch --tags --progress -- git@github.com:javierma84/todo-list-aws.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url git@github.com:javierma84/todo-list-aws.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/develop^{commit} # timeout=10
+Checking out Revision fda93207dc87e43be5e1e716ff98910a5951b4d8 (refs/remotes/origin/develop)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f fda93207dc87e43be5e1e716ff98910a5951b4d8 # timeout=10
+Commit message: "prueba cobertura N"
+ > git rev-list --no-walk 51b852b3f4d6a49dfca85325d59dc53aedf8ccfe # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (SetUp)
+[Pipeline] echo
+Setup Virtualenv for testing
+[Pipeline] sh
++ bash pipelines/PIPELINE-FULL-STAGING/setup.sh
++ python3.7 -m venv todo-list-aws
++ source todo-list-aws/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /bin/bash -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/todo-list-aws
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+++ PATH=/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/todo-list-aws/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(todo-list-aws) ' '!=' x ']'
+++ PS1='(todo-list-aws) '
+++ export PS1
+++ '[' -n /bin/bash -o -n '' ']'
+++ hash -r
++ python -m pip install --upgrade pip
+Collecting pip
+  Using cached https://files.pythonhosted.org/packages/96/2f/caec18213f6a67852f6997fb0673ae08d2e93d1b81573edb93ba4ef06970/pip-22.1.2-py3-none-any.whl
+Installing collected packages: pip
+  Found existing installation: pip 9.0.1
+    Uninstalling pip-9.0.1:
+      Successfully uninstalled pip-9.0.1
+Successfully installed pip-22.1.2
++ python -m pip install radon
+Collecting radon
+  Using cached radon-5.1.0-py2.py3-none-any.whl (52 kB)
+Collecting future
+  Using cached future-0.18.2.tar.gz (829 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting mando<0.7,>=0.6
+  Using cached mando-0.6.4-py2.py3-none-any.whl (29 kB)
+Collecting colorama>=0.4.1
+  Using cached colorama-0.4.4-py2.py3-none-any.whl (16 kB)
+Collecting six
+  Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Using legacy 'setup.py install' for future, since package 'wheel' is not installed.
+Installing collected packages: six, future, colorama, mando, radon
+  Running setup.py install for future: started
+  Running setup.py install for future: finished with status 'done'
+Successfully installed colorama-0.4.4 future-0.18.2 mando-0.6.4 radon-5.1.0 six-1.16.0
++ python -m pip install flake8
+Collecting flake8
+  Using cached flake8-4.0.1-py2.py3-none-any.whl (64 kB)
+Collecting pycodestyle<2.9.0,>=2.8.0
+  Using cached pycodestyle-2.8.0-py2.py3-none-any.whl (42 kB)
+Collecting importlib-metadata<4.3
+  Using cached importlib_metadata-4.2.0-py3-none-any.whl (16 kB)
+Collecting mccabe<0.7.0,>=0.6.0
+  Using cached mccabe-0.6.1-py2.py3-none-any.whl (8.6 kB)
+Collecting pyflakes<2.5.0,>=2.4.0
+  Using cached pyflakes-2.4.0-py2.py3-none-any.whl (69 kB)
+Collecting zipp>=0.5
+  Using cached zipp-3.8.0-py3-none-any.whl (5.4 kB)
+Collecting typing-extensions>=3.6.4
+  Using cached typing_extensions-4.2.0-py3-none-any.whl (24 kB)
+Installing collected packages: mccabe, zipp, typing-extensions, pyflakes, pycodestyle, importlib-metadata, flake8
+Successfully installed flake8-4.0.1 importlib-metadata-4.2.0 mccabe-0.6.1 pycodestyle-2.8.0 pyflakes-2.4.0 typing-extensions-4.2.0 zipp-3.8.0
++ python -m pip install flake8-polyfill
+Collecting flake8-polyfill
+  Using cached flake8_polyfill-1.0.2-py2.py3-none-any.whl (7.3 kB)
+Requirement already satisfied: flake8 in ./todo-list-aws/lib/python3.7/site-packages (from flake8-polyfill) (4.0.1)
+Requirement already satisfied: pycodestyle<2.9.0,>=2.8.0 in ./todo-list-aws/lib/python3.7/site-packages (from flake8->flake8-polyfill) (2.8.0)
+Requirement already satisfied: importlib-metadata<4.3 in ./todo-list-aws/lib/python3.7/site-packages (from flake8->flake8-polyfill) (4.2.0)
+Requirement already satisfied: mccabe<0.7.0,>=0.6.0 in ./todo-list-aws/lib/python3.7/site-packages (from flake8->flake8-polyfill) (0.6.1)
+Requirement already satisfied: pyflakes<2.5.0,>=2.4.0 in ./todo-list-aws/lib/python3.7/site-packages (from flake8->flake8-polyfill) (2.4.0)
+Requirement already satisfied: typing-extensions>=3.6.4 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata<4.3->flake8->flake8-polyfill) (4.2.0)
+Requirement already satisfied: zipp>=0.5 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata<4.3->flake8->flake8-polyfill) (3.8.0)
+Installing collected packages: flake8-polyfill
+Successfully installed flake8-polyfill-1.0.2
++ python -m pip install bandit
+Collecting bandit
+  Using cached bandit-1.7.4-py3-none-any.whl (118 kB)
+Collecting PyYAML>=5.3.1
+  Using cached PyYAML-6.0-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (596 kB)
+Collecting stevedore>=1.20.0
+  Using cached stevedore-3.5.0-py3-none-any.whl (49 kB)
+Collecting GitPython>=1.0.1
+  Using cached GitPython-3.1.27-py3-none-any.whl (181 kB)
+Collecting gitdb<5,>=4.0.1
+  Using cached gitdb-4.0.9-py3-none-any.whl (63 kB)
+Requirement already satisfied: typing-extensions>=3.7.4.3 in ./todo-list-aws/lib/python3.7/site-packages (from GitPython>=1.0.1->bandit) (4.2.0)
+Requirement already satisfied: importlib-metadata>=1.7.0 in ./todo-list-aws/lib/python3.7/site-packages (from stevedore>=1.20.0->bandit) (4.2.0)
+Collecting pbr!=2.1.0,>=2.0.0
+  Using cached pbr-5.9.0-py2.py3-none-any.whl (112 kB)
+Collecting smmap<6,>=3.0.1
+  Using cached smmap-5.0.0-py3-none-any.whl (24 kB)
+Requirement already satisfied: zipp>=0.5 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata>=1.7.0->stevedore>=1.20.0->bandit) (3.8.0)
+Installing collected packages: smmap, PyYAML, pbr, stevedore, gitdb, GitPython, bandit
+Successfully installed GitPython-3.1.27 PyYAML-6.0 bandit-1.7.4 gitdb-4.0.9 pbr-5.9.0 smmap-5.0.0 stevedore-3.5.0
++ python -m pip install pytest
+Collecting pytest
+  Using cached pytest-7.1.2-py3-none-any.whl (297 kB)
+Collecting py>=1.8.2
+  Using cached py-1.11.0-py2.py3-none-any.whl (98 kB)
+Collecting attrs>=19.2.0
+  Using cached attrs-21.4.0-py2.py3-none-any.whl (60 kB)
+Collecting tomli>=1.0.0
+  Using cached tomli-2.0.1-py3-none-any.whl (12 kB)
+Collecting packaging
+  Using cached packaging-21.3-py3-none-any.whl (40 kB)
+Collecting pluggy<2.0,>=0.12
+  Using cached pluggy-1.0.0-py2.py3-none-any.whl (13 kB)
+Collecting iniconfig
+  Using cached iniconfig-1.1.1-py2.py3-none-any.whl (5.0 kB)
+Requirement already satisfied: importlib-metadata>=0.12 in ./todo-list-aws/lib/python3.7/site-packages (from pytest) (4.2.0)
+Requirement already satisfied: typing-extensions>=3.6.4 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata>=0.12->pytest) (4.2.0)
+Requirement already satisfied: zipp>=0.5 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata>=0.12->pytest) (3.8.0)
+Collecting pyparsing!=3.0.5,>=2.0.2
+  Using cached pyparsing-3.0.9-py3-none-any.whl (98 kB)
+Installing collected packages: iniconfig, tomli, pyparsing, py, attrs, pluggy, packaging, pytest
+Successfully installed attrs-21.4.0 iniconfig-1.1.1 packaging-21.3 pluggy-1.0.0 py-1.11.0 pyparsing-3.0.9 pytest-7.1.2 tomli-2.0.1
++ python -m pip install boto3
+Collecting boto3
+  Using cached boto3-1.24.7-py3-none-any.whl (132 kB)
+Collecting botocore<1.28.0,>=1.27.7
+  Using cached botocore-1.27.7-py3-none-any.whl (8.9 MB)
+Collecting jmespath<2.0.0,>=0.7.1
+  Using cached jmespath-1.0.0-py3-none-any.whl (23 kB)
+Collecting s3transfer<0.7.0,>=0.6.0
+  Using cached s3transfer-0.6.0-py3-none-any.whl (79 kB)
+Collecting urllib3<1.27,>=1.25.4
+  Using cached urllib3-1.26.9-py2.py3-none-any.whl (138 kB)
+Collecting python-dateutil<3.0.0,>=2.1
+  Using cached python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
+Requirement already satisfied: six>=1.5 in ./todo-list-aws/lib/python3.7/site-packages (from python-dateutil<3.0.0,>=2.1->botocore<1.28.0,>=1.27.7->boto3) (1.16.0)
+Installing collected packages: urllib3, python-dateutil, jmespath, botocore, s3transfer, boto3
+Successfully installed boto3-1.24.7 botocore-1.27.7 jmespath-1.0.0 python-dateutil-2.8.2 s3transfer-0.6.0 urllib3-1.26.9
++ python -m pip install moto
+Collecting moto
+  Using cached moto-3.1.13-py3-none-any.whl (1.8 MB)
+Collecting responses>=0.9.0
+  Using cached responses-0.21.0-py3-none-any.whl (45 kB)
+Requirement already satisfied: botocore>=1.12.201 in ./todo-list-aws/lib/python3.7/site-packages (from moto) (1.27.7)
+Collecting requests>=2.5
+  Using cached requests-2.28.0-py3-none-any.whl (62 kB)
+Collecting werkzeug>=0.5
+  Using cached Werkzeug-2.1.2-py3-none-any.whl (224 kB)
+Collecting xmltodict
+  Using cached xmltodict-0.13.0-py2.py3-none-any.whl (10.0 kB)
+Collecting MarkupSafe!=2.0.0a1
+  Using cached MarkupSafe-2.1.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (25 kB)
+Requirement already satisfied: boto3>=1.9.201 in ./todo-list-aws/lib/python3.7/site-packages (from moto) (1.24.7)
+Collecting cryptography>=3.3.1
+  Using cached cryptography-37.0.2-cp36-abi3-manylinux_2_24_x86_64.whl (4.0 MB)
+Collecting pytz
+  Using cached pytz-2022.1-py2.py3-none-any.whl (503 kB)
+Collecting Jinja2>=2.10.1
+  Using cached Jinja2-3.1.2-py3-none-any.whl (133 kB)
+Requirement already satisfied: python-dateutil<3.0.0,>=2.1 in ./todo-list-aws/lib/python3.7/site-packages (from moto) (2.8.2)
+Requirement already satisfied: importlib-metadata in ./todo-list-aws/lib/python3.7/site-packages (from moto) (4.2.0)
+Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in ./todo-list-aws/lib/python3.7/site-packages (from boto3>=1.9.201->moto) (1.0.0)
+Requirement already satisfied: s3transfer<0.7.0,>=0.6.0 in ./todo-list-aws/lib/python3.7/site-packages (from boto3>=1.9.201->moto) (0.6.0)
+Requirement already satisfied: urllib3<1.27,>=1.25.4 in ./todo-list-aws/lib/python3.7/site-packages (from botocore>=1.12.201->moto) (1.26.9)
+Collecting cffi>=1.12
+  Using cached cffi-1.15.0-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (427 kB)
+Requirement already satisfied: six>=1.5 in ./todo-list-aws/lib/python3.7/site-packages (from python-dateutil<3.0.0,>=2.1->moto) (1.16.0)
+Collecting idna<4,>=2.5
+  Using cached idna-3.3-py3-none-any.whl (61 kB)
+Collecting certifi>=2017.4.17
+  Using cached certifi-2022.5.18.1-py3-none-any.whl (155 kB)
+Collecting charset-normalizer~=2.0.0
+  Using cached charset_normalizer-2.0.12-py3-none-any.whl (39 kB)
+Requirement already satisfied: typing-extensions in ./todo-list-aws/lib/python3.7/site-packages (from responses>=0.9.0->moto) (4.2.0)
+Requirement already satisfied: zipp>=0.5 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata->moto) (3.8.0)
+Collecting pycparser
+  Using cached pycparser-2.21-py2.py3-none-any.whl (118 kB)
+Installing collected packages: pytz, xmltodict, werkzeug, pycparser, MarkupSafe, idna, charset-normalizer, certifi, requests, Jinja2, cffi, responses, cryptography, moto
+Successfully installed Jinja2-3.1.2 MarkupSafe-2.1.1 certifi-2022.5.18.1 cffi-1.15.0 charset-normalizer-2.0.12 cryptography-37.0.2 idna-3.3 moto-3.1.13 pycparser-2.21 pytz-2022.1 requests-2.28.0 responses-0.21.0 werkzeug-2.1.2 xmltodict-0.13.0
++ python -m pip install mock==4.0.2
+Collecting mock==4.0.2
+  Using cached mock-4.0.2-py3-none-any.whl (28 kB)
+Installing collected packages: mock
+Successfully installed mock-4.0.2
++ python -m pip install coverage==4.5.4
+Collecting coverage==4.5.4
+  Using cached coverage-4.5.4-cp37-cp37m-manylinux1_x86_64.whl (205 kB)
+Installing collected packages: coverage
+Successfully installed coverage-4.5.4
++ pwd
+/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] echo
+Static program analysis:
+[Pipeline] sh
++ bash pipelines/PIPELINE-FULL-STAGING/static_test.sh
+++ radon cc src -nc
+++ wc -l
++ RAD_ERRORS=0
++ [[ 0 -ne 0 ]]
+++ wc -l
+++ radon mi src -nc
++ RAD_ERRORS=0
++ [[ 0 -ne 0 ]]
++ flake8 src/__init__.py src/create.py src/decimalencoder.py src/delete.py src/get.py src/list.py src/todoList.py src/update.py
++ [[ 0 -ne 0 ]]
++ bandit src/__init__.py src/create.py src/decimalencoder.py src/delete.py src/get.py src/list.py src/todoList.py src/update.py
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.7.5
+Run started:2022-06-13 19:42:54.023218
+
+Test results:
+	No issues identified.
+
+Code scanned:
+	Total lines of code: 194
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+Files skipped (0):
++ [[ 0 -ne 0 ]]
+[Pipeline] echo
+Unit testing:
+[Pipeline] sh
++ bash pipelines/PIPELINE-FULL-STAGING/unit_test.sh
+++ pwd
++ export PYTHONPATH=:/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING
++ PYTHONPATH=:/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING
++ echo 'PYTHONPATH: :/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING'
+PYTHONPATH: :/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING
++ export DYNAMODB_TABLE=todoUnitTestsTable
++ DYNAMODB_TABLE=todoUnitTestsTable
++ python test/unit/TestToDo.py
+/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/todo-list-aws/lib/python3.7/site-packages/moto/__init__.py:27: UserWarning: Module mock_dynamodb2 has been deprecated, and will be removed in a later release. Please use mock_dynamodb instead. See https://github.com/spulec/moto/issues/4526 for more information.
+  f"Module {used} has been deprecated, and will be removed in a later release. Please use {recommended} instead. "
+/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/todo-list-aws/lib/python3.7/site-packages/moto/__init__.py:27: UserWarning: Module mock_dynamodb2 has been deprecated, and will be removed in a later release. Please use mock_dynamodb instead. See https://github.com/spulec/moto/issues/4526 for more information.
+  f"Module {used} has been deprecated, and will be removed in a later release. Please use {recommended} instead. "
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.941s
+
+OK
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_delete_todo
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "04b6498a-eb51-11ec-8943-120a597288fb", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655149374.5429811", "updatedAt": "1655149374.5429811"}'}
+Id item:04b6498a-eb51-11ec-8943-120a597288fb
+Item deleted succesfully
+End: test_delete_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_delete_todo_error
+Start: add_client_exception_to_moto
+End: add_client_exception_to_moto
+A condition specified in the operation could not be evaluated.
+End: test_delete_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_get_todo
+Table name:todoUnitTestsTable
+Response put_item:{'statusCode': 200, 'body': '{"id": "04b6498b-eb51-11ec-8943-120a597288fb", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655149374.7237146", "updatedAt": "1655149374.7237146"}'}
+Id item:04b6498b-eb51-11ec-8943-120a597288fb
+Result getItem:{'Item': {'id': '04b6498b-eb51-11ec-8943-120a597288fb', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1655149374.7237146', 'updatedAt': '1655149374.7237146'}, 'ResponseMetadata': {'RequestId': 'TFNIK8OQIJWOIPS36THNH6148IL31BD6LD8P1Z9KDK5HCD5TYSO8', 'HTTPStatusCode': 200, 'HTTPHeaders': {'server': 'amazon.com', 'x-amzn-requestid': 'TFNIK8OQIJWOIPS36THNH6148IL31BD6LD8P1Z9KDK5HCD5TYSO8', 'x-amz-crc32': '4285476120'}, 'RetryAttempts': 0}}
+Response Get:{'id': '04b6498b-eb51-11ec-8943-120a597288fb', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1655149374.7237146', 'updatedAt': '1655149374.7237146'}
+End: test_get_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_get_todo_exception
+Start: add_client_exception_to_moto
+End: add_client_exception_to_moto
+Requested resource not found
+End: test_get_todo_exception
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_list_todo
+Table name:todoUnitTestsTable
+Response GetItems[{'id': '04b6498c-eb51-11ec-8943-120a597288fb', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1655149374.944', 'updatedAt': '1655149374.944'}]
+End: test_list_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_put_todo
+Table name:todoUnitTestsTable
+Response put_item:{'statusCode': 200, 'body': '{"id": "04b6498d-eb51-11ec-8943-120a597288fb", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655149375.0129163", "updatedAt": "1655149375.0129163"}'}
+End: test_put_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_put_todo_error
+Table name:todoUnitTestsTable
+Table name:todoUnitTestsTable
+Start: add_client_exception_to_moto
+End: add_client_exception_to_moto
+Table name:todoUnitTestsTable
+Requested resource not found
+End: test_put_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_table_exists
+Table name:todoUnitTestsTable
+End: test_table_exists
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_update_todo
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "04b64991-eb51-11ec-8943-120a597288fb", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655149375.2331595", "updatedAt": "1655149375.2331595"}'}
+Id item:04b64991-eb51-11ec-8943-120a597288fb
+Result Update Item:{'id': '04b64991-eb51-11ec-8943-120a597288fb', 'text': 'Aprender más cosas que DevOps y Cloud en la UNIR', 'checked': 'false', 'createdAt': '1655149375.2331595', 'updatedAt': Decimal('1655149375236')}
+End: test_update_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: atest_update_todo_error
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "04b64992-eb51-11ec-8943-120a597288fb", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655149375.3731484", "updatedAt": "1655149375.3731484"}'}
+Start: add_client_exception_to_moto
+End: add_client_exception_to_moto
+Requested resource not found
+Requested resource not found
+Requested resource not found
+End: atest_update_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
++ pip show coverage
+Name: coverage
+Version: 4.5.4
+Summary: Code coverage measurement for Python
+Home-page: https://github.com/nedbat/coveragepy
+Author: Ned Batchelder and 100 others
+Author-email: ned@nedbatchelder.com
+License: Apache 2.0
+Location: /var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/todo-list-aws/lib/python3.7/site-packages
+Requires: 
+Required-by: 
++ coverage run --include=src/todoList.py test/unit/TestToDo.py
+/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/todo-list-aws/lib/python3.7/site-packages/moto/__init__.py:27: UserWarning: Module mock_dynamodb2 has been deprecated, and will be removed in a later release. Please use mock_dynamodb instead. See https://github.com/spulec/moto/issues/4526 for more information.
+  f"Module {used} has been deprecated, and will be removed in a later release. Please use {recommended} instead. "
+/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/todo-list-aws/lib/python3.7/site-packages/moto/__init__.py:27: UserWarning: Module mock_dynamodb2 has been deprecated, and will be removed in a later release. Please use mock_dynamodb instead. See https://github.com/spulec/moto/issues/4526 for more information.
+  f"Module {used} has been deprecated, and will be removed in a later release. Please use {recommended} instead. "
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 1.144s
+
+OK
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_delete_todo
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "05f69192-eb51-11ec-8943-120a597288fb", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655149376.649693", "updatedAt": "1655149376.649693"}'}
+Id item:05f69192-eb51-11ec-8943-120a597288fb
+Item deleted succesfully
+End: test_delete_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_delete_todo_error
+Start: add_client_exception_to_moto
+End: add_client_exception_to_moto
+A condition specified in the operation could not be evaluated.
+End: test_delete_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_get_todo
+Table name:todoUnitTestsTable
+Response put_item:{'statusCode': 200, 'body': '{"id": "05f69193-eb51-11ec-8943-120a597288fb", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655149376.8590868", "updatedAt": "1655149376.8590868"}'}
+Id item:05f69193-eb51-11ec-8943-120a597288fb
+Result getItem:{'Item': {'id': '05f69193-eb51-11ec-8943-120a597288fb', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1655149376.8590868', 'updatedAt': '1655149376.8590868'}, 'ResponseMetadata': {'RequestId': '3X2V58Q5T5CQ9EBH4MRPB92YT9LW2M966BOZ381PUAH5HQ3UZOB8', 'HTTPStatusCode': 200, 'HTTPHeaders': {'server': 'amazon.com', 'x-amzn-requestid': '3X2V58Q5T5CQ9EBH4MRPB92YT9LW2M966BOZ381PUAH5HQ3UZOB8', 'x-amz-crc32': '2070303989'}, 'RetryAttempts': 0}}
+Response Get:{'id': '05f69193-eb51-11ec-8943-120a597288fb', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1655149376.8590868', 'updatedAt': '1655149376.8590868'}
+End: test_get_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_get_todo_exception
+Start: add_client_exception_to_moto
+End: add_client_exception_to_moto
+Requested resource not found
+End: test_get_todo_exception
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_list_todo
+Table name:todoUnitTestsTable
+Response GetItems[{'id': '05f69194-eb51-11ec-8943-120a597288fb', 'text': 'Aprender DevOps y Cloud en la UNIR', 'checked': False, 'createdAt': '1655149377.1105971', 'updatedAt': '1655149377.1105971'}]
+End: test_list_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_put_todo
+Table name:todoUnitTestsTable
+Response put_item:{'statusCode': 200, 'body': '{"id": "05f69195-eb51-11ec-8943-120a597288fb", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655149377.2034795", "updatedAt": "1655149377.2034795"}'}
+End: test_put_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_put_todo_error
+Table name:todoUnitTestsTable
+Table name:todoUnitTestsTable
+Start: add_client_exception_to_moto
+End: add_client_exception_to_moto
+Table name:todoUnitTestsTable
+Requested resource not found
+End: test_put_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_table_exists
+Table name:todoUnitTestsTable
+End: test_table_exists
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: test_update_todo
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "05f69199-eb51-11ec-8943-120a597288fb", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655149377.4817953", "updatedAt": "1655149377.4817953"}'}
+Id item:05f69199-eb51-11ec-8943-120a597288fb
+Result Update Item:{'id': '05f69199-eb51-11ec-8943-120a597288fb', 'text': 'Aprender más cosas que DevOps y Cloud en la UNIR', 'checked': 'false', 'createdAt': '1655149377.4817953', 'updatedAt': Decimal('1655149377487')}
+End: test_update_todo
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
+---------------------
+Start: setUp
+Creating Table with name:todoUnitTestsTable
+End: setUp
+---------------------
+Start: atest_update_todo_error
+Table name:todoUnitTestsTable
+Response PutItem{'statusCode': 200, 'body': '{"id": "05f6919a-eb51-11ec-8943-120a597288fb", "text": "Aprender DevOps y Cloud en la UNIR", "checked": false, "createdAt": "1655149377.651953", "updatedAt": "1655149377.651953"}'}
+Start: add_client_exception_to_moto
+End: add_client_exception_to_moto
+Requested resource not found
+Requested resource not found
+Requested resource not found
+End: atest_update_todo_error
+---------------------
+Start: tearDown
+Table deleted succesfully
+End: tearDown
++ coverage report -m
+Name              Stmts   Miss  Cover   Missing
+-----------------------------------------------
+src/todoList.py      64      7    89%   12-18, 146
++ coverage xml
+Post stage
+[Pipeline] script
+[Pipeline] {
+[Pipeline] publishCoverage
+Publishing Coverage report....
+A total of 1 reports were found
+Report coverage diff: 0.0%. Add to CoverageResult.
+Group coverage diff: 0.0%. Add to CoverageResult.
+Package coverage diff: 0.0%. Add to CoverageResult.
+File coverage diff: 0.0%. Add to CoverageResult.
+Class coverage diff: 0.0%. Add to CoverageResult.
+Line coverage diff: 12.5%. Add to CoverageResult.
+[Coverage] Computing coverage delta report
+[Coverage] Reference build recorder is not configured
+[Coverage] -> No reference build defined, falling back to previous build
+[Coverage] -> Found reference result 'io.jenkins.plugins.coverage.CoverageAction@61f1055d'
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+Package sam application:
+[Pipeline] sh
++ bash pipelines/common-steps/build.sh
++ sam validate --region us-east-1
+2022-06-13 19:42:59 Loading policies from IAM...
+2022-06-13 19:42:59 Finished loading policies from IAM.
+/var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/template.yaml is a valid SAM Template
++ sam build
+Building codeuri: /var/lib/jenkins/workspace/PIPELINE-FULL-STAGING/src runtime: python3.7 metadata: {} architecture: x86_64 functions: ['CreateTodoFunction', 'ListTodosFunction', 'GetTodoFunction', 'UpdateTodoFunction', 'DeleteTodoFunction']
+Running PythonPipBuilder:ResolveDependencies
+Running PythonPipBuilder:CopySource
+
+Build Succeeded
+
+Built Artifacts  : .aws-sam/build
+Built Template   : .aws-sam/build/template.yaml
+
+Commands you can use next
+=========================
+[*] Invoke Function: sam local invoke
+[*] Deploy: sam deploy --guided
+    
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] echo
+Initiating Deployment
+[Pipeline] sh
++ bash pipelines/common-steps/deploy.sh
++ sort -h
++ du -hs CHANGELOG.md README.md coverage.xml localEnvironment.json logs pipelines pytest.ini samconfig.toml src template.yaml test todo-list-aws
+4.0K	CHANGELOG.md
+4.0K	coverage.xml
+4.0K	localEnvironment.json
+4.0K	pytest.ini
+4.0K	samconfig.toml
+8.0K	README.md
+8.0K	template.yaml
+32K	test
+48K	src
+60K	pipelines
+88K	logs
+162M	todo-list-aws
++ sam deploy template.yaml --config-env staging --no-confirm-changeset --force-upload --no-fail-on-empty-changeset --no-progressbar
+
+	Deploying with following values
+	===============================
+	Stack name                   : todo-list-aws-staging
+	Region                       : us-east-1
+	Confirm changeset            : False
+	Deployment s3 bucket         : aws-sam-cli-managed-staging-samclisourcebucket-220611
+	Capabilities                 : ["CAPABILITY_IAM"]
+	Parameter overrides          : {"Stage": "staging"}
+	Signing Profiles             : {}
+
+Initiating deployment
+=====================
+
+Waiting for changeset to be created..
+No changes to deploy. Stack todo-list-aws-staging is up to date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Integration Test after deploy)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ aws cloudformation describe-stacks --stack-name todo-list-aws-staging --query Stacks[0].Outputs[?OutputKey==`BaseUrlApi`].OutputValue --region us-east-1 --output text
+[Pipeline] echo
+https://2b3v69jdz0.execute-api.us-east-1.amazonaws.com/Prod
+
+[Pipeline] echo
+Initiating Integration Tests
+[Pipeline] sh
++ bash pipelines/common-steps/integration.sh https://2b3v69jdz0.execute-api.us-east-1.amazonaws.com/Prod
++ export BASE_URL=https://2b3v69jdz0.execute-api.us-east-1.amazonaws.com/Prod
++ BASE_URL=https://2b3v69jdz0.execute-api.us-east-1.amazonaws.com/Prod
++ pytest -s test/integration/todoApiTest.py
+============================= test session starts ==============================
+platform linux -- Python 3.7.5, pytest-7.1.2, pluggy-1.0.0
+rootdir: /var/lib/jenkins/workspace/PIPELINE-FULL-STAGING, configfile: pytest.ini
+collected 5 items
+
+test/integration/todoApiTest.py ---------------------------------------
+Starting - integration test Add TODO
+Response Add Todo: {"id": "114b492a-eb51-11ec-be7d-4ab036985cf9", "text": "Integration text example", "checked": false, "createdAt": "1655149395.526865", "updatedAt": "1655149395.526865"}
+ID todo:114b492a-eb51-11ec-be7d-4ab036985cf9
+End - integration test Add TODO
+.---------------------------------------
+Starting - integration test Delete TODO
+Response Add todo: {"id": "12f9e362-eb51-11ec-be7d-4ab036985cf9", "text": "Integration text example - Initial", "checked": false, "createdAt": "1655149398.4885995", "updatedAt": "1655149398.4885995"}
+ID todo:12f9e362-eb51-11ec-be7d-4ab036985cf9
+Response Delete Todo:<Response [200]>
+Response Get Todo https://2b3v69jdz0.execute-api.us-east-1.amazonaws.com/Prod/todos/12f9e362-eb51-11ec-be7d-4ab036985cf9: <Response [404]>
+End - integration test Delete TODO
+.---------------------------------------
+Starting - integration test Get TODO
+Response Add Todo: {'statusCode': 200, 'body': '{"id": "15251c7e-eb51-11ec-be7d-4ab036985cf9", "text": "Integration text example - GET", "checked": false, "createdAt": "1655149402.127275", "updatedAt": "1655149402.127275"}'}
+ID todo:15251c7e-eb51-11ec-be7d-4ab036985cf9
+Response Get Todo: {'checked': False, 'createdAt': '1655149402.127275', 'text': 'Integration text example - GET', 'id': '15251c7e-eb51-11ec-be7d-4ab036985cf9', 'updatedAt': '1655149402.127275'}
+End - integration test Get TODO
+.---------------------------------------
+Starting - integration test List TODO
+Response Add Todo: {'statusCode': 200, 'body': '{"id": "15ae8dd8-eb51-11ec-be7d-4ab036985cf9", "text": "Integration text example", "checked": false, "createdAt": "1655149403.0280685", "updatedAt": "1655149403.0280685"}'}
+ID todo:15ae8dd8-eb51-11ec-be7d-4ab036985cf9
+Response List Todo:[{'checked': False, 'createdAt': '1655044829.5597425', 'text': 'Integration text example', 'id': '9b099b98-ea5d-11ec-a34d-7e83ed420f3c', 'updatedAt': '1655044829.5597425'}, {'checked': False, 'createdAt': '1655105256.257312', 'text': 'Integration text example', 'id': '4c27ed80-eaea-11ec-bfee-e260d64749d3', 'updatedAt': '1655105256.257312'}, {'checked': False, 'createdAt': '1655048527.0244474', 'text': 'Integration text example', 'id': '36e5f2fc-ea66-11ec-af1a-7ecf757c5641', 'updatedAt': '1655048527.0244474'}, {'checked': False, 'createdAt': '1655105951.4785144', 'text': 'Integration text example', 'id': 'ea8a4422-eaeb-11ec-bfee-e260d64749d3', 'updatedAt': '1655105951.4785144'}, {'checked': False, 'createdAt': '1655067780.5928986', 'text': 'Integration text example', 'id': '0aeb5840-ea93-11ec-ab47-b60e22164fcf', 'updatedAt': '1655067780.5928986'}, {'checked': False, 'createdAt': '1655105666.4560096', 'text': 'Integration text example', 'id': '40a74838-eaeb-11ec-bfee-e260d64749d3', 'updatedAt': '1655105666.4560096'}, {'checked': False, 'createdAt': '1655141037.3594098', 'text': 'Integration text example', 'id': '9b5ad23e-eb3d-11ec-8ae0-4a0cc759b5e6', 'updatedAt': '1655141037.3594098'}, {'checked': False, 'createdAt': '1655065056.3356986', 'text': 'Integration text example', 'id': 'b322b000-ea8c-11ec-baa0-82e05e546202', 'updatedAt': '1655065056.3356986'}, {'checked': False, 'createdAt': '1655104590.5724897', 'text': 'Integration text example', 'id': 'bf607c56-eae8-11ec-a64a-666e6eb7ec16', 'updatedAt': '1655104590.5724897'}, {'checked': False, 'createdAt': '1655050266.443475', 'text': 'Integration text example', 'id': '43ac39f2-ea6a-11ec-89ea-f2ec45a9b8b4', 'updatedAt': '1655050266.443475'}, {'checked': False, 'createdAt': '1655049654.908647', 'text': 'Integration text example', 'id': 'd7311e42-ea68-11ec-b50d-6ead749932c3', 'updatedAt': '1655049654.908647'}, {'checked': False, 'createdAt': '1655105480.2388852', 'text': 'Integration text example', 'id': 'd1a8ced4-eaea-11ec-bfee-e260d64749d3', 'updatedAt': '1655105480.2388852'}, {'checked': False, 'createdAt': '1655045571.7383778', 'text': 'Integration text example', 'id': '5569140e-ea5f-11ec-b5a1-d626db6c4b9b', 'updatedAt': '1655045571.7383778'}, {'checked': False, 'createdAt': '1655149403.0280685', 'text': 'Integration text example', 'id': '15ae8dd8-eb51-11ec-be7d-4ab036985cf9', 'updatedAt': '1655149403.0280685'}, {'checked': False, 'createdAt': '1655065902.2072659', 'text': 'Integration text example', 'id': 'ab50711c-ea8e-11ec-8415-9a52199a02ac', 'updatedAt': '1655065902.2072659'}, {'checked': False, 'createdAt': '1655069668.1003046', 'text': 'Integration text example', 'id': '6ff61e74-ea97-11ec-9efc-a203c617507c', 'updatedAt': '1655069668.1003046'}, {'checked': False, 'createdAt': '1655049796.8689122', 'text': 'Integration text example', 'id': '2bc8d63e-ea69-11ec-b50d-6ead749932c3', 'updatedAt': '1655049796.8689122'}, {'checked': False, 'createdAt': '1655145858.0923867', 'text': 'Integration text example', 'id': 'd4bc4c14-eb48-11ec-bced-6a3217cc70c7', 'updatedAt': '1655145858.0923867'}, {'checked': False, 'createdAt': '1655066113.2594972', 'text': 'Integration text example', 'id': '291c75c8-ea8f-11ec-a79e-aec11e450f32', 'updatedAt': '1655066113.2594972'}]
+End - integration test List TODO
+.---------------------------------------
+Starting - integration test Update TODO
+Response Add todo: {"id": "1710a2ec-eb51-11ec-be7d-4ab036985cf9", "text": "Integration text example - Initial", "checked": false, "createdAt": "1655149405.3485818", "updatedAt": "1655149405.3485818"}
+ID todo:1710a2ec-eb51-11ec-be7d-4ab036985cf9
+Response Update todo: {'checked': 'true', 'createdAt': '1655149405.3485818', 'text': 'Integration text example - Modified', 'id': '1710a2ec-eb51-11ec-be7d-4ab036985cf9', 'updatedAt': 1655149407354}
+Response Get Todo: {'checked': 'true', 'createdAt': '1655149405.3485818', 'text': 'Integration text example - Modified', 'id': '1710a2ec-eb51-11ec-be7d-4ab036985cf9', 'updatedAt': 1655149407354}
+End - integration test Update TODO
+.
+
+============================== 5 passed in 14.57s ==============================
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Clean env: delete dir
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

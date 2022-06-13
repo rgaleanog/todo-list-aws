@@ -1,0 +1,116 @@
+Started by user Javier Martinez
+Obtained pipelines/PIPELINE-FULL-CD/Jenkinsfile from git git@github.com:javierma84/todo-list-aws.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/PIPELINE-FULL-CD
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github
+Cloning the remote Git repository
+Cloning repository git@github.com:javierma84/todo-list-aws.git
+ > git init /var/lib/jenkins/workspace/PIPELINE-FULL-CD # timeout=10
+Fetching upstream changes from git@github.com:javierma84/todo-list-aws.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.17.1'
+using GIT_SSH to set credentials 
+ > git fetch --tags --progress -- git@github.com:javierma84/todo-list-aws.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url git@github.com:javierma84/todo-list-aws.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision b4fca855ff333e8aa4b5d6e39b2683855c31f511 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f b4fca855ff333e8aa4b5d6e39b2683855c31f511 # timeout=10
+Commit message: "Merge develop a master"
+ > git rev-list --no-walk b4fca855ff333e8aa4b5d6e39b2683855c31f511 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Staging)
+[Pipeline] echo
+Starting staging job
+[Pipeline] build
+Scheduling project: PIPELINE-FULL-STAGING
+Starting building: PIPELINE-FULL-STAGING #26
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Merge)
+[Pipeline] sh
++ set -x
++ git branch -a
+* (HEAD detached at b4fca85)
+  remotes/origin/develop
+  remotes/origin/feature
+  remotes/origin/master
++ git checkout -b develop origin/develop
+Previous HEAD position was b4fca85 Merge develop a master
+Switched to a new branch 'develop'
+Branch 'develop' set up to track remote branch 'develop' from 'origin'.
++ git checkout -b master origin/master
+Switched to a new branch 'master'
+Branch 'master' set up to track remote branch 'master' from 'origin'.
++ git merge develop
+Removing logs/SamDeployGuided2.txt
+Merge made by the 'recursive' strategy.
+ logs/LlamadaCreate.txt                       |  2 +-
+ logs/SamDeployGuided2.txt                    | 58 -----------------------
+ pipelines/PIPELINE-FULL-STAGING/unit_test.sh |  2 +-
+ test/unit/TestToDo.py                        | 71 ++++++++++++++++++++++++++--
+ 4 files changed, 68 insertions(+), 65 deletions(-)
+ delete mode 100644 logs/SamDeployGuided2.txt
+[Pipeline] sshagent
+[ssh-agent] Using credentials javierma84
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-mY9upSG0xnfa/agent.6644
+SSH_AGENT_PID=6645
+Running ssh-add (command line suppressed)
+Identity added: /var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_9300396762073697916.key (/var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_9300396762073697916.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] sh
++ git push origin master
+To github.com:javierma84/todo-list-aws.git
+   b4fca85..3f24318  master -> master
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 6645 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Production)
+[Pipeline] echo
+Starting production job
+[Pipeline] build
+Scheduling project: PIPELINE-FULL-PRODUCTION
+Starting building: PIPELINE-FULL-PRODUCTION #10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Clean env: delete dir
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

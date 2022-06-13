@@ -1,0 +1,361 @@
+Started by user Javier Martinez
+Obtained pipelines/PIPELINE-FULL-PRODUCTION/Jenkinsfile from git git@github.com:javierma84/todo-list-aws.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/PIPELINE-FULL-PRODUCTION
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github
+Cloning the remote Git repository
+Cloning repository git@github.com:javierma84/todo-list-aws.git
+ > git init /var/lib/jenkins/workspace/PIPELINE-FULL-PRODUCTION # timeout=10
+Fetching upstream changes from git@github.com:javierma84/todo-list-aws.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.17.1'
+using GIT_SSH to set credentials 
+ > git fetch --tags --progress -- git@github.com:javierma84/todo-list-aws.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url git@github.com:javierma84/todo-list-aws.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision b4fca855ff333e8aa4b5d6e39b2683855c31f511 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f b4fca855ff333e8aa4b5d6e39b2683855c31f511 # timeout=10
+Commit message: "Merge develop a master"
+ > git rev-list --no-walk b4fca855ff333e8aa4b5d6e39b2683855c31f511 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (SetUp)
+[Pipeline] echo
+Setup Virtualenv for testing
+[Pipeline] sh
++ bash pipelines/PIPELINE-FULL-PRODUCTION/setup.sh
++ python3.7 -m venv todo-list-aws
++ source todo-list-aws/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /bin/bash -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/var/lib/jenkins/workspace/PIPELINE-FULL-PRODUCTION/todo-list-aws
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+++ PATH=/var/lib/jenkins/workspace/PIPELINE-FULL-PRODUCTION/todo-list-aws/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(todo-list-aws) ' '!=' x ']'
+++ PS1='(todo-list-aws) '
+++ export PS1
+++ '[' -n /bin/bash -o -n '' ']'
+++ hash -r
++ python -m pip install --upgrade pip
+Collecting pip
+  Using cached https://files.pythonhosted.org/packages/96/2f/caec18213f6a67852f6997fb0673ae08d2e93d1b81573edb93ba4ef06970/pip-22.1.2-py3-none-any.whl
+Installing collected packages: pip
+  Found existing installation: pip 9.0.1
+    Uninstalling pip-9.0.1:
+      Successfully uninstalled pip-9.0.1
+Successfully installed pip-22.1.2
++ python -m pip install awscli
+Collecting awscli
+  Using cached awscli-1.25.7-py3-none-any.whl (3.9 MB)
+Collecting rsa<4.8,>=3.1.2
+  Using cached rsa-4.7.2-py3-none-any.whl (34 kB)
+Collecting colorama<0.4.5,>=0.2.5
+  Using cached colorama-0.4.4-py2.py3-none-any.whl (16 kB)
+Collecting PyYAML<5.5,>=3.10
+  Using cached PyYAML-5.4.1-cp37-cp37m-manylinux1_x86_64.whl (636 kB)
+Collecting botocore==1.27.7
+  Using cached botocore-1.27.7-py3-none-any.whl (8.9 MB)
+Collecting s3transfer<0.7.0,>=0.6.0
+  Using cached s3transfer-0.6.0-py3-none-any.whl (79 kB)
+Collecting docutils<0.17,>=0.10
+  Using cached docutils-0.16-py2.py3-none-any.whl (548 kB)
+Collecting urllib3<1.27,>=1.25.4
+  Using cached urllib3-1.26.9-py2.py3-none-any.whl (138 kB)
+Collecting jmespath<2.0.0,>=0.7.1
+  Using cached jmespath-1.0.0-py3-none-any.whl (23 kB)
+Collecting python-dateutil<3.0.0,>=2.1
+  Using cached python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
+Collecting pyasn1>=0.1.3
+  Using cached pyasn1-0.4.8-py2.py3-none-any.whl (77 kB)
+Collecting six>=1.5
+  Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Installing collected packages: pyasn1, urllib3, six, rsa, PyYAML, jmespath, docutils, colorama, python-dateutil, botocore, s3transfer, awscli
+Successfully installed PyYAML-5.4.1 awscli-1.25.7 botocore-1.27.7 colorama-0.4.4 docutils-0.16 jmespath-1.0.0 pyasn1-0.4.8 python-dateutil-2.8.2 rsa-4.7.2 s3transfer-0.6.0 six-1.16.0 urllib3-1.26.9
++ python -m pip install aws-sam-cli
+Collecting aws-sam-cli
+  Using cached aws_sam_cli-1.52.0-py3-none-any.whl (5.1 MB)
+Collecting aws-lambda-builders==1.17.0
+  Using cached aws_lambda_builders-1.17.0-py3-none-any.whl (113 kB)
+Collecting tzlocal==3.0
+  Using cached tzlocal-3.0-py3-none-any.whl (16 kB)
+Collecting cookiecutter~=1.7.2
+  Using cached cookiecutter-1.7.3-py2.py3-none-any.whl (34 kB)
+Collecting Flask~=1.1.2
+  Using cached Flask-1.1.4-py2.py3-none-any.whl (94 kB)
+Collecting docker~=4.2.0
+  Using cached docker-4.2.2-py2.py3-none-any.whl (144 kB)
+Collecting boto3==1.*,>=1.19.5
+  Using cached boto3-1.24.7-py3-none-any.whl (132 kB)
+Collecting aws-sam-translator==1.46.0
+  Using cached aws_sam_translator-1.46.0-py3-none-any.whl (231 kB)
+Collecting chevron~=0.12
+  Using cached chevron-0.14.0-py3-none-any.whl (11 kB)
+Collecting MarkupSafe==2.0.1
+  Using cached MarkupSafe-2.0.1-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (31 kB)
+Collecting requests==2.25.1
+  Using cached requests-2.25.1-py2.py3-none-any.whl (61 kB)
+Requirement already satisfied: PyYAML~=5.3 in ./todo-list-aws/lib/python3.7/site-packages (from aws-sam-cli) (5.4.1)
+Collecting regex==2021.9.30
+  Using cached regex-2021.9.30-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (747 kB)
+Collecting typing-extensions==3.10.0.0
+  Using cached typing_extensions-3.10.0.0-py3-none-any.whl (26 kB)
+Collecting tomlkit==0.7.2
+  Using cached tomlkit-0.7.2-py2.py3-none-any.whl (32 kB)
+Collecting dateparser~=1.0
+  Using cached dateparser-1.1.1-py2.py3-none-any.whl (288 kB)
+Collecting serverlessrepo==0.1.10
+  Using cached serverlessrepo-0.1.10-py2.py3-none-any.whl (23 kB)
+Collecting click~=7.1
+  Using cached click-7.1.2-py2.py3-none-any.whl (82 kB)
+Collecting watchdog==2.1.2
+  Using cached watchdog-2.1.2-py3-none-manylinux2014_x86_64.whl (74 kB)
+Collecting jmespath~=0.10.0
+  Using cached jmespath-0.10.0-py2.py3-none-any.whl (24 kB)
+Requirement already satisfied: setuptools in ./todo-list-aws/lib/python3.7/site-packages (from aws-lambda-builders==1.17.0->aws-sam-cli) (39.0.1)
+Requirement already satisfied: six~=1.11 in ./todo-list-aws/lib/python3.7/site-packages (from aws-lambda-builders==1.17.0->aws-sam-cli) (1.16.0)
+Collecting wheel
+  Using cached wheel-0.37.1-py2.py3-none-any.whl (35 kB)
+Collecting jsonschema~=3.2
+  Using cached jsonschema-3.2.0-py2.py3-none-any.whl (56 kB)
+Requirement already satisfied: botocore<1.28.0,>=1.27.7 in ./todo-list-aws/lib/python3.7/site-packages (from boto3==1.*,>=1.19.5->aws-sam-cli) (1.27.7)
+Requirement already satisfied: s3transfer<0.7.0,>=0.6.0 in ./todo-list-aws/lib/python3.7/site-packages (from boto3==1.*,>=1.19.5->aws-sam-cli) (0.6.0)
+Collecting chardet<5,>=3.0.2
+  Using cached chardet-4.0.0-py2.py3-none-any.whl (178 kB)
+Collecting certifi>=2017.4.17
+  Using cached certifi-2022.5.18.1-py3-none-any.whl (155 kB)
+Collecting idna<3,>=2.5
+  Using cached idna-2.10-py2.py3-none-any.whl (58 kB)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in ./todo-list-aws/lib/python3.7/site-packages (from requests==2.25.1->aws-sam-cli) (1.26.9)
+Collecting backports.zoneinfo
+  Using cached backports.zoneinfo-0.2.1-cp37-cp37m-manylinux1_x86_64.whl (70 kB)
+Collecting poyo>=0.5.0
+  Using cached poyo-0.5.0-py2.py3-none-any.whl (10 kB)
+Collecting Jinja2<4.0.0,>=2.7
+  Using cached Jinja2-3.1.2-py3-none-any.whl (133 kB)
+Collecting binaryornot>=0.4.4
+  Using cached binaryornot-0.4.4-py2.py3-none-any.whl (9.0 kB)
+Collecting python-slugify>=4.0.0
+  Using cached python_slugify-6.1.2-py2.py3-none-any.whl (9.4 kB)
+Collecting jinja2-time>=0.2.0
+  Using cached jinja2_time-0.2.0-py2.py3-none-any.whl (6.4 kB)
+Requirement already satisfied: python-dateutil in ./todo-list-aws/lib/python3.7/site-packages (from dateparser~=1.0->aws-sam-cli) (2.8.2)
+Collecting pytz
+  Using cached pytz-2022.1-py2.py3-none-any.whl (503 kB)
+Collecting websocket-client>=0.32.0
+  Using cached websocket_client-1.3.2-py3-none-any.whl (54 kB)
+Collecting itsdangerous<2.0,>=0.24
+  Using cached itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)
+Collecting Werkzeug<2.0,>=0.15
+  Using cached Werkzeug-1.0.1-py2.py3-none-any.whl (298 kB)
+Collecting Jinja2<4.0.0,>=2.7
+  Using cached Jinja2-2.11.3-py2.py3-none-any.whl (125 kB)
+Collecting arrow
+  Using cached arrow-1.2.2-py3-none-any.whl (64 kB)
+Collecting pyrsistent>=0.14.0
+  Using cached pyrsistent-0.18.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (117 kB)
+Collecting importlib-metadata
+  Using cached importlib_metadata-4.11.4-py3-none-any.whl (18 kB)
+Collecting attrs>=17.4.0
+  Using cached attrs-21.4.0-py2.py3-none-any.whl (60 kB)
+Collecting text-unidecode>=1.3
+  Using cached text_unidecode-1.3-py2.py3-none-any.whl (78 kB)
+Collecting zipp>=0.5
+  Using cached zipp-3.8.0-py3-none-any.whl (5.4 kB)
+Installing collected packages: typing-extensions, text-unidecode, regex, pytz, chevron, zipp, wheel, Werkzeug, websocket-client, watchdog, tomlkit, python-slugify, pyrsistent, poyo, MarkupSafe, jmespath, itsdangerous, idna, click, chardet, certifi, backports.zoneinfo, attrs, tzlocal, requests, Jinja2, importlib-metadata, binaryornot, aws-lambda-builders, arrow, jsonschema, jinja2-time, Flask, docker, dateparser, cookiecutter, boto3, serverlessrepo, aws-sam-translator, aws-sam-cli
+  Attempting uninstall: jmespath
+    Found existing installation: jmespath 1.0.0
+    Uninstalling jmespath-1.0.0:
+      Successfully uninstalled jmespath-1.0.0
+Successfully installed Flask-1.1.4 Jinja2-2.11.3 MarkupSafe-2.0.1 Werkzeug-1.0.1 arrow-1.2.2 attrs-21.4.0 aws-lambda-builders-1.17.0 aws-sam-cli-1.52.0 aws-sam-translator-1.46.0 backports.zoneinfo-0.2.1 binaryornot-0.4.4 boto3-1.24.7 certifi-2022.5.18.1 chardet-4.0.0 chevron-0.14.0 click-7.1.2 cookiecutter-1.7.3 dateparser-1.1.1 docker-4.2.2 idna-2.10 importlib-metadata-4.11.4 itsdangerous-1.1.0 jinja2-time-0.2.0 jmespath-0.10.0 jsonschema-3.2.0 poyo-0.5.0 pyrsistent-0.18.1 python-slugify-6.1.2 pytz-2022.1 regex-2021.9.30 requests-2.25.1 serverlessrepo-0.1.10 text-unidecode-1.3 tomlkit-0.7.2 typing-extensions-3.10.0.0 tzlocal-3.0 watchdog-2.1.2 websocket-client-1.3.2 wheel-0.37.1 zipp-3.8.0
++ python -m pip install pytest
+Collecting pytest
+  Using cached pytest-7.1.2-py3-none-any.whl (297 kB)
+Collecting py>=1.8.2
+  Using cached py-1.11.0-py2.py3-none-any.whl (98 kB)
+Requirement already satisfied: importlib-metadata>=0.12 in ./todo-list-aws/lib/python3.7/site-packages (from pytest) (4.11.4)
+Requirement already satisfied: attrs>=19.2.0 in ./todo-list-aws/lib/python3.7/site-packages (from pytest) (21.4.0)
+Collecting packaging
+  Using cached packaging-21.3-py3-none-any.whl (40 kB)
+Collecting pluggy<2.0,>=0.12
+  Using cached pluggy-1.0.0-py2.py3-none-any.whl (13 kB)
+Collecting iniconfig
+  Using cached iniconfig-1.1.1-py2.py3-none-any.whl (5.0 kB)
+Collecting tomli>=1.0.0
+  Using cached tomli-2.0.1-py3-none-any.whl (12 kB)
+Requirement already satisfied: typing-extensions>=3.6.4 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata>=0.12->pytest) (3.10.0.0)
+Requirement already satisfied: zipp>=0.5 in ./todo-list-aws/lib/python3.7/site-packages (from importlib-metadata>=0.12->pytest) (3.8.0)
+Collecting pyparsing!=3.0.5,>=2.0.2
+  Using cached pyparsing-3.0.9-py3-none-any.whl (98 kB)
+Installing collected packages: iniconfig, tomli, pyparsing, py, pluggy, packaging, pytest
+Successfully installed iniconfig-1.1.1 packaging-21.3 pluggy-1.0.0 py-1.11.0 pyparsing-3.0.9 pytest-7.1.2 tomli-2.0.1
++ pwd
+/var/lib/jenkins/workspace/PIPELINE-FULL-PRODUCTION
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+Package sam application:
+[Pipeline] sh
++ bash pipelines/common-steps/build.sh
++ sam validate --region us-east-1
+2022-06-13 19:46:48 Loading policies from IAM...
+2022-06-13 19:46:48 Finished loading policies from IAM.
+/var/lib/jenkins/workspace/PIPELINE-FULL-PRODUCTION/template.yaml is a valid SAM Template
++ sam build
+[33mYour template contains a resource with logical ID "ServerlessRestApi", which is a reserved logical ID in AWS SAM. It could result in unexpected behaviors and is not recommended.[0m
+Building codeuri: /var/lib/jenkins/workspace/PIPELINE-FULL-PRODUCTION/src runtime: python3.7 metadata: {} architecture: x86_64 functions: ['CreateTodoFunction', 'ListTodosFunction', 'GetTodoFunction', 'UpdateTodoFunction', 'DeleteTodoFunction']
+Running PythonPipBuilder:ResolveDependencies
+Running PythonPipBuilder:CopySource
+
+Build Succeeded
+
+Built Artifacts  : .aws-sam/build
+Built Template   : .aws-sam/build/template.yaml
+
+Commands you can use next
+=========================
+[*] Validate SAM template: sam validate
+[*] Invoke Function: sam local invoke
+[*] Test Function in the Cloud: sam sync --stack-name {stack-name} --watch
+[*] Deploy: sam deploy --guided
+        
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] echo
+Initiating Deployment
+[Pipeline] sh
++ bash pipelines/common-steps/deploy.sh
++ sort -h
++ du -hs CHANGELOG.md README.md localEnvironment.json logs pipelines pytest.ini samconfig.toml src template.yaml test todo-list-aws
+4.0K	CHANGELOG.md
+4.0K	localEnvironment.json
+4.0K	pytest.ini
+4.0K	samconfig.toml
+8.0K	README.md
+8.0K	template.yaml
+28K	test
+36K	src
+60K	pipelines
+140K	logs
+173M	todo-list-aws
++ sam deploy template.yaml --config-env production --no-confirm-changeset --force-upload --no-fail-on-empty-changeset --no-progressbar
+
+	Deploying with following values
+	===============================
+	Stack name                   : todo-list-aws-production
+	Region                       : us-east-1
+	Confirm changeset            : False
+	Deployment s3 bucket         : aws-sam-cli-managed-production-samclisourcebucket-220611
+	Capabilities                 : ["CAPABILITY_IAM"]
+	Parameter overrides          : {"Stage": "production"}
+	Signing Profiles             : {}
+
+Initiating deployment
+=====================
+
+Waiting for changeset to be created..
+No changes to deploy. Stack todo-list-aws-production is up to date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Integration Test after deploy)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ aws cloudformation describe-stacks --stack-name todo-list-aws-production --query Stacks[0].Outputs[?OutputKey==`BaseUrlApi`].OutputValue --region us-east-1 --output text
+[Pipeline] echo
+https://bm5uo8cya2.execute-api.us-east-1.amazonaws.com/Prod
+
+[Pipeline] echo
+Initiating Integration Tests
+[Pipeline] sh
++ bash pipelines/common-steps/integration.sh https://bm5uo8cya2.execute-api.us-east-1.amazonaws.com/Prod
++ export BASE_URL=https://bm5uo8cya2.execute-api.us-east-1.amazonaws.com/Prod
++ BASE_URL=https://bm5uo8cya2.execute-api.us-east-1.amazonaws.com/Prod
++ pytest -s test/integration/todoApiTest.py
+============================= test session starts ==============================
+platform linux -- Python 3.7.5, pytest-7.1.2, pluggy-1.0.0
+rootdir: /var/lib/jenkins/workspace/PIPELINE-FULL-PRODUCTION, configfile: pytest.ini
+collected 5 items
+
+test/integration/todoApiTest.py ---------------------------------------
+Starting - integration test Add TODO
+Response Add Todo: {"id": "98193ec6-eb51-11ec-af64-3225a99f5c34", "text": "Integration text example", "checked": false, "createdAt": "1655149621.8310502", "updatedAt": "1655149621.8310502"}
+ID todo:98193ec6-eb51-11ec-af64-3225a99f5c34
+End - integration test Add TODO
+.---------------------------------------
+Starting - integration test Delete TODO
+Response Add todo: {"id": "9874ebb8-eb51-11ec-af64-3225a99f5c34", "text": "Integration text example - Initial", "checked": false, "createdAt": "1655149622.4318643", "updatedAt": "1655149622.4318643"}
+ID todo:9874ebb8-eb51-11ec-af64-3225a99f5c34
+Response Delete Todo:<Response [200]>
+Response Get Todo https://bm5uo8cya2.execute-api.us-east-1.amazonaws.com/Prod/todos/9874ebb8-eb51-11ec-af64-3225a99f5c34: <Response [404]>
+End - integration test Delete TODO
+.---------------------------------------
+Starting - integration test Get TODO
+Response Add Todo: {'statusCode': 200, 'body': '{"id": "98fe1988-eb51-11ec-af64-3225a99f5c34", "text": "Integration text example - GET", "checked": false, "createdAt": "1655149623.330897", "updatedAt": "1655149623.330897"}'}
+ID todo:98fe1988-eb51-11ec-af64-3225a99f5c34
+Response Get Todo: {'checked': False, 'createdAt': '1655149623.330897', 'text': 'Integration text example - GET', 'id': '98fe1988-eb51-11ec-af64-3225a99f5c34', 'updatedAt': '1655149623.330897'}
+End - integration test Get TODO
+.---------------------------------------
+Starting - integration test List TODO
+Response Add Todo: {'statusCode': 200, 'body': '{"id": "998d5f94-eb51-11ec-af64-3225a99f5c34", "text": "Integration text example", "checked": false, "createdAt": "1655149624.2698567", "updatedAt": "1655149624.2698567"}'}
+ID todo:998d5f94-eb51-11ec-af64-3225a99f5c34
+Response List Todo:[{'checked': False, 'createdAt': '1655149624.2698567', 'text': 'Integration text example', 'id': '998d5f94-eb51-11ec-af64-3225a99f5c34', 'updatedAt': '1655149624.2698567'}, {'checked': False, 'createdAt': '1655149523.7708566', 'text': 'Integration text example', 'id': '5da67218-eb51-11ec-af64-3225a99f5c34', 'updatedAt': '1655149523.7708566'}, {'checked': False, 'createdAt': '1655048386.0658805', 'text': 'Integration text example', 'id': 'e2e16178-ea65-11ec-a38f-e23a7490b810', 'updatedAt': '1655048386.0658805'}, {'checked': False, 'createdAt': '1655050326.0555258', 'text': 'Integration text example', 'id': '6739fc6a-ea6a-11ec-9724-e62db5ae393b', 'updatedAt': '1655050326.0555258'}, {'checked': False, 'createdAt': '1655049713.7977192', 'text': 'Integration text example', 'id': 'fa452e50-ea68-11ec-9af1-2251c4efb692', 'updatedAt': '1655049713.7977192'}]
+End - integration test List TODO
+.---------------------------------------
+Starting - integration test Update TODO
+Response Add todo: {"id": "99e5dfac-eb51-11ec-af64-3225a99f5c34", "text": "Integration text example - Initial", "checked": false, "createdAt": "1655149624.8498437", "updatedAt": "1655149624.8498437"}
+ID todo:99e5dfac-eb51-11ec-af64-3225a99f5c34
+Response Update todo: {'checked': 'true', 'createdAt': '1655149624.8498437', 'text': 'Integration text example - Modified', 'id': '99e5dfac-eb51-11ec-af64-3225a99f5c34', 'updatedAt': 1655149625173}
+Response Get Todo: {'checked': 'true', 'createdAt': '1655149624.8498437', 'text': 'Integration text example - Modified', 'id': '99e5dfac-eb51-11ec-af64-3225a99f5c34', 'updatedAt': 1655149625173}
+End - integration test Update TODO
+.
+
+============================== 5 passed in 4.23s ===============================
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Clean env: delete dir
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
