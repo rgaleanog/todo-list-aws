@@ -204,6 +204,32 @@ class TestDatabaseFunctions(unittest.TestCase):
                 self.uuid,
                 "",
                 self.dynamodb))
+
+        add_client_exception_to_moto(self)
+        self.table.put_item.side_effect = self.dbException
+
+        self.assertRaises(
+            Exception,
+            update_item(
+                updated_text,
+                "",
+                "false",
+                self.dynamodb))
+        self.assertRaises(
+            TypeError,
+            update_item(
+                "",
+                self.uuid,
+                "false",
+                self.dynamodb))
+        self.assertRaises(
+            Exception,
+            update_item(
+                updated_text,
+                self.uuid,
+                "",
+                self.dynamodb))
+
         print ('End: atest_update_todo_error')
 
     def test_delete_todo(self):
