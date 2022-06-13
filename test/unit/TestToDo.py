@@ -50,7 +50,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_table')
 
         from src.todoList import get_table
-        os.environ['ENDPOINT_OVERRIDE'] = "http://dynamodb:8000"
+        #os.environ['ENDPOINT_OVERRIDE'] = "http://dynamodb:8000"
         new_table = get_table()
         print('Table name:' + new_table.name)
         tableName = os.environ['DYNAMODB_TABLE']
@@ -66,7 +66,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         #self.assertTrue(self.table_local)  # check if we got a result
 
         print('Table name:' + self.table.name)
-        tableName = os.environ['DYNAMODB_TABLE'];
+        tableName = os.environ['DYNAMODB_TABLE']
         # check if the table name is 'ToDo'
         self.assertIn(tableName, self.table.name)
         #self.assertIn('todoTable', self.table_local.name)
