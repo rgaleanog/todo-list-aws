@@ -8,23 +8,23 @@ import os
 import json
 
 @mock_dynamodb2
+def add_client_exception_to_moto(self):
+    print ('Start: add_client_exception_to_moto')
+
+    from src.todoList import get_table
+    from unittest.mock import Mock
+    from botocore.exceptions import ClientError
+    
+    self.table = get_table(self.dynamodb)
+    self.table = Mock()    
+    
+    self.dbException = ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
+        os.environ['DYNAMODB_TABLE'])
+    
+    print ('End: add_client_exception_to_moto')
+
+@mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
-
-    def mock_table(self):
-        print ('---------------------')
-        print ('Mocking table')
-        from src.todoList import get_table
-        from unittest.mock import Mock
-        
-        self.table = get_table(self.dynamodb)
-        self.table = Mock()
-        print ('Table Mocked')
-        
-        from botocore.exceptions import ClientError
-        self.dbException = ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
-            os.environ['DYNAMODB_TABLE'])
-        print ('DB mock Exception ready')
-
     def setUp(self):
         print ('---------------------')
         print ('Start: setUp')
@@ -61,20 +61,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.dynamodb = None
         print ('End: tearDown')
 
-    # def test_get_table(self):
-    #     print ('---------------------')
-    #     print ('Start: test_get_table')
-
-    #     from src.todoList import get_table
-    #     os.environ['ENDPOINT_OVERRIDE'] = "http://dynamodb:8000"
-    #     new_table = get_table()
-    #     print('Table name:' + new_table.name)
-    #     tableName = os.environ['DYNAMODB_TABLE']
-        
-    #     self.assertIn(tableName, self.table.name)
-
-    #     print ('End: test_get_table')
-
     def test_table_exists(self):
         print ('---------------------')
         print ('Start: test_table_exists')
@@ -109,10 +95,10 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import put_item
         # Table mock      
         self.assertRaises(Exception, put_item("", self.dynamodb))
+        self.assertRaises(Exception, put_item("", self.dynamodb))
 
-        mock_table(self)
+        add_client_exception_to_moto(self)
         self.table.put_item.side_effect = self.dbException
-        print ('Table mocked for put_item()')
 
         self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
@@ -144,35 +130,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_todo_exception')
         #from src.todoList import get_table
         from src.todoList import get_item        
-        """ from unittest.mock import Mock
-        from botocore.exceptions import ClientError
         
-        self.table = get_table(self.dynamodb)
-        self.table = Mock()
-        print ('Table Mocked')        
-        self.dbException = ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
-        os.environ['DYNAMODB_TABLE'])
-
-        self.table.get_item.side_effect = self.dbException """
-
-        if 1:
-            mock_table(self)
-        else:
-            from src.todoList import get_table
-            from unittest.mock import Mock
-            
-            self.table = get_table(self.dynamodb)
-            self.table = Mock()
-            print ('Table Mocked')
-            
-            from botocore.exceptions import ClientError
-            self.dbException = ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
-                os.environ['DYNAMODB_TABLE'])
-
-        
+        add_client_exception_to_moto(self)         
         self.table.get_item.side_effect = self.dbException
-        print ('Table mocked for put_item()')
-
         self.assertRaises(Exception, get_item("", self.dynamodb))
 
         print ('End: test_get_todo_exception')
