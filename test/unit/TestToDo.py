@@ -133,6 +133,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(200, responsePut['statusCode'])
         
         # Invento
+        print("Inicio invento")
+        
         from botocore.exceptions import ClientError
         from botocore.stub import Stubber
         with Stubber(self.dynamodb.meta.client) as stubber:
