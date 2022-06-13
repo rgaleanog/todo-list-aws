@@ -2,7 +2,7 @@
 import warnings
 import unittest
 import boto3
-from moto import mock_dynamodb
+from moto import mock_dynamodb2
 import sys
 import os
 import json
@@ -23,7 +23,7 @@ def mock_table(self):
         os.environ['DYNAMODB_TABLE'])
     print ('DB mock Exception ready')
 
-@mock_dynamodb
+@mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
         print ('---------------------')
