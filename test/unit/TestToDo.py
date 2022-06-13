@@ -155,16 +155,21 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         self.table.get_item.side_effect = self.dbException """
 
-        from src.todoList import get_table
-        from unittest.mock import Mock
+        if 1:
+            mock_table(self)
+        else:
+            from src.todoList import get_table
+            from unittest.mock import Mock
+            
+            self.table = get_table(self.dynamodb)
+            self.table = Mock()
+            print ('Table Mocked')
+            
+            from botocore.exceptions import ClientError
+            self.dbException = ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
+                os.environ['DYNAMODB_TABLE'])
+
         
-        self.table = get_table(self.dynamodb)
-        self.table = Mock()
-        print ('Table Mocked')
-        
-        from botocore.exceptions import ClientError
-        self.dbException = ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
-            os.environ['DYNAMODB_TABLE'])
         self.table.get_item.side_effect = self.dbException
         print ('Table mocked for put_item()')
 
