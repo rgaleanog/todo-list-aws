@@ -73,14 +73,26 @@ class TestDatabaseFunctions(unittest.TestCase):
         #                 'ResponseMetadata']['HTTPStatusCode'])
         print ('End: test_put_todo')
 
+    def test_put_todo2(self):
+        print ('---------------------')
+        print ('Start: test_put_todo2')
+        # Testing file functions
+        from src.todoList import put_item
+        # Table local
+        response = put_item(self.text, None)
+        print ('Response put_item:' + str(response))
+        self.assertEqual(200, response['statusCode'])
+        # Table mock
+        #self.assertEqual(200, put_item(self.text, self.dynamodb)[
+        #                 'ResponseMetadata']['HTTPStatusCode'])
+        print ('End: test_put_todo2')
+
     def test_put_todo_error(self):
         print ('---------------------')
         print ('Start: test_put_todo_error')
         # Testing file functions
         from src.todoList import put_item
-        # Table mock
-        print ('PRUEBA')
-        self.assertRaises(Exception, put_item("", None))
+        # Table mock      
         self.assertRaises(Exception, put_item("", self.dynamodb))
         self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
