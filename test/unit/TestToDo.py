@@ -73,20 +73,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         #                 'ResponseMetadata']['HTTPStatusCode'])
         print ('End: test_put_todo')
 
-    def test_put_todo2(self):
-        print ('---------------------')
-        print ('Start: test_put_todo2')
-        # Testing file functions
-        from src.todoList import put_item
-        # Table local
-        response = put_item(self.text, None)
-        print ('Response put_item:' + str(response))
-        self.assertEqual(200, response['statusCode'])
-        # Table mock
-        #self.assertEqual(200, put_item(self.text, self.dynamodb)[
-        #                 'ResponseMetadata']['HTTPStatusCode'])
-        print ('End: test_put_todo2')
-
     def test_put_todo_error(self):
         print ('---------------------')
         print ('Start: test_put_todo_error')
@@ -155,6 +141,24 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(result['text'], updated_text)
         print ('End: test_update_todo')
 
+    def test_algo(self):
+        print ('---------------------')
+        print ('Start: test_algo')
+        from src.todoList import get_table
+        from unittest.mock import Mock
+
+        self.table = get_table(self.dynamodb)
+        self.table = Mock()
+        print ('Table Mocked')
+
+        from botocore.exceptions import ClientError
+        #Depende de que haga el metodo a probar sera put, post, etc....
+        self.table.put_item.side_effect =  ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
+            os.environ['DYNAMODB_TABLE'])
+
+        from src.todoList import put_item
+        self.assertRaises(Exception, put_item("", self.dynamodb)) 
+        print ('End: test_algo')
 
     def test_update_todo_error(self):
         print ('---------------------')
