@@ -2,7 +2,7 @@
 import warnings
 import unittest
 import boto3
-from moto import mock_dynamodb2
+from moto import mock_dynamodb
 import sys
 import os
 import json
@@ -84,6 +84,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('End: test_put_todo_error')
 
     def test_get_table(self):
+        print ('---------------------')
+        print ('Start: test_get_table')
         from src.todoList import get_table
         self.dynamodb = None
         #Porqué no llamar directamente pasandole none?
