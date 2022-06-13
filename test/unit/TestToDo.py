@@ -141,6 +141,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         from botocore.exceptions import ClientError
         self.dbException = ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
         os.environ['DYNAMODB_TABLE'])
+        
+        self.table.get_item.side_effect = self.dbException
 
         self.assertRaises(Exception, get_item(idItem, self.dynamodb))
 
