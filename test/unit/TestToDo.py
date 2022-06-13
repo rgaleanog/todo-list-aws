@@ -117,6 +117,34 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.text,
             responseGet['text'])
         print ('End: test_get_todo')
+
+    def test_get_todo_exception(self):
+        print ('---------------------')
+        print ('Start: test_get_todo_exception')
+        from src.todoList import get_item
+        from src.todoList import put_item
+
+        # Testing file functions
+        # Table mock
+        responsePut = put_item(self.text, self.dynamodb)
+        print ('Response put_item:' + str(responsePut))
+        idItem = json.loads(responsePut['body'])['id']
+        print ('Id item:' + idItem)
+        self.assertEqual(200, responsePut['statusCode'])
+        
+        # Invento
+        from botocore.exceptions import ClientError
+        from botocore.stub import Stubber
+        with Stubber(self.dynamodb) as stubber:
+            stubber = Stubber(self.dynamodb)
+            stubber.add_client_error('get_item')
+            stubber.activate()
+
+        self.assertRaises(ClientError, get_item(idItem, self.dynamodb))
+
+        # Fin invento
+
+        print ('End: test_get_todo_exception')
     
     def test_list_todo(self):
         print ('---------------------')
