@@ -139,7 +139,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             stubber.add_client_error('get_item')
             stubber.activate()
 
-        self.assertRaises(ClientError, get_item(idItem, self.dynamodb))
+        self.assertRaises(Exception, get_item(idItem, self.dynamodb))
 
         # Fin invento
 
