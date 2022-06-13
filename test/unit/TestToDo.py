@@ -86,8 +86,11 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_get_table(self):
         from src.todoList import get_table
         self.dynamodb = None
+        #Porqué no llamar directamente pasandole none?
         table = get_table(self.dynamodb)
         self.assertIn(table.name,self.table.name)
+        #Volver a dejar la tabla como estaba? Mejor hacer un backup?
+        self.dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 
     def test_get_todo(self):
         print ('---------------------')
