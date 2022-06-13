@@ -263,7 +263,5 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         print ('End: test_delete_todo_error')
 
-
-
 if __name__ == '__main__':
     unittest.main()
