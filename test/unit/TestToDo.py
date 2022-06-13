@@ -8,23 +8,23 @@ import os
 import json
 
 @mock_dynamodb2
-def mock_table(self):
-    print ('---------------------')
-    print ('Mocking table')
-    from src.todoList import get_table
-    from unittest.mock import Mock
-    
-    self.table = get_table(self.dynamodb)
-    self.table = Mock()
-    print ('Table Mocked')
-    
-    from botocore.exceptions import ClientError
-    self.dbException = ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
-        os.environ['DYNAMODB_TABLE'])
-    print ('DB mock Exception ready')
-
-@mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
+
+    def mock_table(self):
+        print ('---------------------')
+        print ('Mocking table')
+        from src.todoList import get_table
+        from unittest.mock import Mock
+        
+        self.table = get_table(self.dynamodb)
+        self.table = Mock()
+        print ('Table Mocked')
+        
+        from botocore.exceptions import ClientError
+        self.dbException = ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
+            os.environ['DYNAMODB_TABLE'])
+        print ('DB mock Exception ready')
+
     def setUp(self):
         print ('---------------------')
         print ('Start: setUp')
