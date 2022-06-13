@@ -36,7 +36,7 @@ def get_item(key, dynamodb=None):
         print('Result getItem:'+str(result))
         if 'Item' in result:
             return result['Item']
-
+ 
 
 def get_items(dynamodb=None):
     table = get_table(dynamodb)
