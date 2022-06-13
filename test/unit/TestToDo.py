@@ -136,11 +136,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         from botocore.exceptions import ClientError
         from botocore.stub import Stubber
         with Stubber(self.dynamodb.meta.client) as stubber:
-            stubber.add_client_error(
-                'get_item',
-                service_error_code="ClientError",
-                service_message="Client Error Message",
-                http_status_code=500)
+            stubber.add_client_error('get_item')
             stubber.activate()
 
         self.assertRaises(ClientError, get_item(idItem, self.dynamodb))
