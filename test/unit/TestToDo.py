@@ -121,30 +121,21 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_get_todo_exception(self):
         print ('---------------------')
         print ('Start: test_get_todo_exception')
-        from src.todoList import get_item
-        from src.todoList import put_item
-
-        # Testing file functions
-        # Table mock
-        responsePut = put_item(self.text, self.dynamodb)
-        print ('Response put_item:' + str(responsePut))
-        idItem = json.loads(responsePut['body'])['id']
-        print ('Id item:' + idItem)
-        self.assertEqual(200, responsePut['statusCode'])
-        
         from src.todoList import get_table
+        from src.todoList import get_item        
         from unittest.mock import Mock
+        from botocore.exceptions import ClientError
         
         self.table = get_table(self.dynamodb)
         self.table = Mock()
         print ('Table Mocked')
-        from botocore.exceptions import ClientError
+        
         self.dbException = ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
         os.environ['DYNAMODB_TABLE'])
-        
+
         self.table.get_item.side_effect = self.dbException
 
-        self.assertRaises(Exception, get_item(idItem, self.dynamodb))
+        self.assertRaises(Exception, get_item('testId', self.dynamodb))
 
         # No funciona el invento
         # print("Inicio invento")
