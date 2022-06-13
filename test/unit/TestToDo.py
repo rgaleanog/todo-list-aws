@@ -8,22 +8,6 @@ import os
 import json
 
 @mock_dynamodb2
-def mock_table(self):
-    print ('---------------------')
-    print ('Mocking table')
-    from src.todoList import get_table
-    from unittest.mock import Mock
-    
-    self.table = get_table(self.dynamodb)
-    self.table = Mock()
-    print ('Table Mocked')
-    
-    from botocore.exceptions import ClientError
-    self.dbException = ClientError({'Error': {'Code': 'MockedException', 'Message': 'This is a Mock'}},
-        os.environ['DYNAMODB_TABLE'])
-    print ('DB mock Exception ready')
-
-@mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
         print ('---------------------')
@@ -109,11 +93,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import put_item
         # Table mock      
         self.assertRaises(Exception, put_item("", self.dynamodb))
-
-        mock_table(self)
-        self.table.put_item.side_effect = self.dbException
-        print ('Table mocked for put_item()')
-
         self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
 
