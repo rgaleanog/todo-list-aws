@@ -45,19 +45,19 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.dynamodb = None
         print ('End: tearDown')
 
-    def test_get_table(self):
-        print ('---------------------')
-        print ('Start: test_get_table')
+    # def test_get_table(self):
+    #     print ('---------------------')
+    #     print ('Start: test_get_table')
 
-        from src.todoList import get_table
-        os.environ['ENDPOINT_OVERRIDE'] = "http://dynamodb:8000"
-        new_table = get_table()
-        print('Table name:' + new_table.name)
-        tableName = os.environ['DYNAMODB_TABLE']
+    #     from src.todoList import get_table
+    #     os.environ['ENDPOINT_OVERRIDE'] = "http://dynamodb:8000"
+    #     new_table = get_table()
+    #     print('Table name:' + new_table.name)
+    #     tableName = os.environ['DYNAMODB_TABLE']
         
-        self.assertIn(tableName, self.table.name)
+    #     self.assertIn(tableName, self.table.name)
 
-        print ('End: test_get_table')
+    #     print ('End: test_get_table')
 
     def test_table_exists(self):
         print ('---------------------')
