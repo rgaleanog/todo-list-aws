@@ -50,6 +50,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_table')
 
         from src.todoList import get_table
+        os.environ['ENDPOINT_OVERRIDE'] = "http://dynamodb:8000"
         new_table = get_table()
         print('Table name:' + new_table.name)
         tableName = os.environ['DYNAMODB_TABLE']
