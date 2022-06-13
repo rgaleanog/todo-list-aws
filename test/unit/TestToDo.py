@@ -83,19 +83,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
 
-    def test_get_table(self):
-        print ('---------------------')
-        print ('Start: test_get_table')
-        from src.todoList import get_table
-        #self.dynamodb = None
-        #Porqué no llamar directamente pasandole none?
-        #table = get_table(self.dynamodb)
-        #self.assertIn(table.name,self.table.name)
-        self.assertRaises(Exception, get_table(None))
-        #Volver a dejar la tabla como estaba? Mejor hacer un backup?
-        #self.dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-        print ('End: test_get_table')
-
     def test_get_todo(self):
         print ('---------------------')
         print ('Start: test_get_todo')
