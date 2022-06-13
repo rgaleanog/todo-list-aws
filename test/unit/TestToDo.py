@@ -255,6 +255,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import delete_item
         # Testing file functions
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
+
+        add_client_exception_to_moto(self)
+        self.table.delete_item.side_effect = self.dbException
+
+        self.assertRaises(TypeError, delete_item("", self.dynamodb))
+
         print ('End: test_delete_todo_error')
 
 
