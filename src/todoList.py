@@ -149,7 +149,7 @@ def create_todo_table(dynamodb):
 
     return table
 
-def translate(text, lang):
+def translate_item(text, lang):
     try:        
         translate = boto3.client('translate', region_name='us-east-1')
         languages = detect_languages(text)

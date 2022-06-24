@@ -7,6 +7,8 @@ import sys
 import os
 import json
 
+from src.todoList import translate, translate_item
+
 @mock_dynamodb2
 def add_client_exception_to_moto(self):
     print ('Start: add_client_exception_to_moto')
@@ -262,6 +264,17 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
 
         print ('End: test_delete_todo_error')
+
+    def test_translate_todo(self):
+        print ('---------------------')
+        print ('Start: test_translate_todo')
+
+        self.assertEqual(
+            translate_item(
+                self.text,
+                "en"),
+                "Learn DevOps and Cloud at UNIR"
+        )
 
 if __name__ == '__main__':
     unittest.main()

@@ -3,13 +3,13 @@ import decimalencoder
 import todoList
 
 
-def get(event, context):
+def translate(event, context):
     # create a response
     item = todoList.get_item(event['pathParameters']['id'])
     lang = event['pathParameters']['lang']
 
     if item:
-        item['text'] = todoList.translate(item['text'], lang)
+        item['text'] = todoList.translate_item(item['text'], lang)
         
         response = {
             "statusCode": 200,
