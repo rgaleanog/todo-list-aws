@@ -269,6 +269,10 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('---------------------')
         print ('Start: test_translate_todo')
 
+        print ('Initial text: ' + self.text)
+        print ('Expected translation: ' + "Learn DevOps and Cloud at UNIR")
+        print ('Received translation: ' + translate_item(self.text,"en"))
+
         self.assertEqual(
             translate_item(
                 self.text,
