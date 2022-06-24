@@ -1,4 +1,6 @@
 import os
+
+from attr import NOTHING
 import boto3
 import time
 import uuid
@@ -146,3 +148,38 @@ def create_todo_table(dynamodb):
         raise AssertionError()
 
     return table
+
+def translate(text, lang):
+    try:        
+        translate = boto3.client('translate', region_name='us-east-1')
+        languages = detect_languages(text)
+        orig_lang = languages[0]['LanguageCode']
+
+        result = translate.translate_text(
+            Text=text,
+            SourceLanguageCode=orig_lang,
+            TargetLanguageCode=lang)
+        return result.get('TranslatedText')
+
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        return
+
+def detect_languages(text):
+    """
+    Detects languages used in a document.
+
+    :param text: The document to inspect.
+    :return: The list of languages along with their confidence scores.
+    """
+    try:
+        comprehend_client = boto3.client('comprehend', region_name='us-east-1')
+        response = comprehend_client.detect_dominant_language(Text=text)
+        languages = response['Languages']
+        print("Detected %s languages.", len(languages))
+    except ClientError:
+        print("Couldn't detect languages.")
+        raise
+    else:
+        return languages
