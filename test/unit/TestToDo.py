@@ -7,8 +7,6 @@ import sys
 import os
 import json
 
-from src.todoList import translate_item
-
 @mock_dynamodb2
 def add_client_exception_to_moto(self):
     print ('Start: add_client_exception_to_moto')
@@ -268,6 +266,8 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_translate_todo(self):
         print ('---------------------')
         print ('Start: test_translate_todo')
+
+        from src.todoList import translate_item
 
         print ('Initial text: ' + self.text)
         print ('Expected translation: ' + "Learn DevOps and Cloud at UNIR")
