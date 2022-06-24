@@ -7,7 +7,7 @@ import sys
 import os
 import json
 
-from src.todoList import translate, translate_item
+from src.todoList import translate_item
 
 @mock_dynamodb2
 def add_client_exception_to_moto(self):
